@@ -1,0 +1,86 @@
+# frontend
+
+> React 18 + Vite
+> 패키지명: frontend
+
+---
+
+## 프로젝트 구조 요약
+
+```
+src/
+├── api/           # 백엔드 API 호출 (axios)
+├── components/    # 공통 컴포넌트
+├── hooks/         # 커스텀 훅
+├── pages/         # 라우트별 페이지
+├── stores/        # 전역 상태 (Zustand 예정)
+├── utils/         # 유틸 함수
+│   └── pptGenerator.js   # PptxGenJS (자동 생성 슬라이드)
+└── data/
+    └── books.js           # 66권 메타데이터
+```
+
+## 환경변수
+
+```
+VITE_API_BASE_URL=http://localhost:8080   # 로컬
+VITE_API_BASE_URL=https://xxx.railway.app # 운영
+```
+
+## 주요 컨벤션
+
+**API 호출** — `src/api/` 에서 함수로 분리, 컴포넌트에서 직접 fetch 금지
+
+**슬라이드 생성 방식 구분**
+- `AUTO` 항목: PptxGenJS로 브라우저에서 직접 생성
+- `FILE` 항목: 사용자가 업로드한 파일을 백엔드로 전송 → POI 병합 후 다운로드
+- 최종 병합은 항상 백엔드(POST `/api/worships/{id}/export`)
+
+**WorshipItem type별 입력 컴포넌트**
+```
+HYMN              → HymnInput.jsx      (찬송가 번호 + AUTO/FILE 토글)
+BIBLE             → BibleInput.jsx     (책/장/절 선택)
+RESPONSIVE_READING→ ResponsiveInput.jsx(교독문 번호)
+PRAYER            → PrayerInput.jsx    (역할 + 담당자 이름)
+SERMON            → SermonInput.jsx    (제목 + 본문)
+```
+
+---
+
+## 현재 상태
+
+> ⚠️ 세션 종료 시 이 섹션을 업데이트할 것
+
+### 완료된 작업
+- [x] 성경봉독 프로토타입 (BibleForm, SlidePreview, pptGenerator)
+- [x] 66권 메타데이터 (books.js)
+- [x] 백엔드 API 연동 (bibleApi.js)
+- [x] 슬라이드 스타일 옵션 (배경색·글자색·폰트 크기)
+
+### 진행 중
+- [ ] 새 프로젝트 구조로 마이그레이션
+
+### 다음 할 일 (순서대로)
+1. **Step 1** — 프로젝트 초기화 (Vite, 라우터, axios 설정)
+2. **Step 2** — 로그인·회원가입 페이지
+3. **Step 3** — 템플릿 관리 페이지 (순서 구성 UI)
+4. **Step 4** — 예배 생성 페이지 (항목별 입력 + AUTO/FILE 토글)
+5. **Step 5** — PPT 생성·다운로드 플로우
+6. **Step 6** — AI 추천 UI (Phase 2)
+
+### 현재 브랜치
+```
+main
+└── develop
+    └── feature/project-init  ← 현재 작업 브랜치
+```
+
+---
+
+## 세션 시작 체크리스트
+
+```
+1. git status 확인
+2. 현재 작업 브랜치 확인
+3. "다음 할 일" 확인 후 목표 선언
+```
