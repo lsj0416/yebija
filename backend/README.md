@@ -95,7 +95,19 @@ GET  /api/responsive/{number}      교독문 조회
 ## 브랜치 전략
 
 ```
-main                # 운영 배포
-└── develop         # 통합 개발
-    └── feature/*   # 기능 개발
+main              # 배포 가능한 상태만
+└── develop       # 백+프론트 통합
+    └── feature/* # 기능 단위 개발 → PR → develop 머지
+```
+
+**브랜치 네이밍 예시**
+```
+feature/project-init
+feature/auth
+feature/bible-scraper
+feature/template
+feature/worship
+feature/hymn-scraper
+feature/ppt-merge
+feature/file-upload
 ```

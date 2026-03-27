@@ -75,6 +75,29 @@ yebija/
 
 ---
 
+## 브랜치 전략
+
+```
+main              # 배포 가능한 상태만
+└── develop       # 백+프론트 통합
+    └── feature/* # 기능 단위 개발 → PR → develop 머지
+```
+
+- `main` 직접 푸시 금지 — 항상 PR
+- 브랜치 네이밍: `feature/auth`, `feature/bible-scraper`, `feature/ppt-merge` 등
+- 머지 후 브랜치 삭제
+
+## 커밋 컨벤션
+
+```
+feat:     새 기능
+fix:      버그 수정
+docs:     문서 작업
+refactor: 리팩토링
+test:     테스트
+chore:    빌드·설정 변경
+```
+
 ## 참고 문서 빠른 링크
 
 - 전체 기획: `docs/plan-v0.3.md`
