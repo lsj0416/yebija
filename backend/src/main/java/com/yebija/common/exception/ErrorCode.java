@@ -27,7 +27,11 @@ public enum ErrorCode {
     BIBLE_NOT_FOUND(404, "BIBLE_NOT_FOUND", "해당 성경 구절을 찾을 수 없습니다."),
 
     // 템플릿
-    TEMPLATE_NOT_FOUND(404, "TEMPLATE_NOT_FOUND", "존재하지 않는 템플릿입니다.");
+    TEMPLATE_NOT_FOUND(404, "TEMPLATE_NOT_FOUND", "존재하지 않는 템플릿입니다."),
+
+    // 예배
+    WORSHIP_NOT_FOUND(404, "WORSHIP_NOT_FOUND", "존재하지 않는 예배입니다."),
+    WORSHIP_ITEM_NOT_FOUND(404, "WORSHIP_ITEM_NOT_FOUND", "존재하지 않는 예배 항목입니다.");
 
     private final int httpStatus;
     private final String code;
