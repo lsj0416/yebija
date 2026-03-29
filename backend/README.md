@@ -38,8 +38,12 @@ OPENAI_API_KEY=        # Phase 2
 ### 2. DB 세팅
 
 ```bash
-mysql -u root -p < docs/schema.sql
+# MySQL에서 데이터베이스 생성
+mysql -u root -p -e "CREATE DATABASE yebija CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
 ```
+
+> 테이블은 `application-local.yml`의 `ddl-auto: update` 설정으로 앱 실행 시 JPA가 자동 생성합니다.
+> 스키마 참고: [docs/schema.md](../docs/schema.md)
 
 ### 3. 실행
 
