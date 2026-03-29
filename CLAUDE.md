@@ -62,16 +62,24 @@ yebija/
 - [x] 서비스 기획 확정 (docs/plan-v0.3.md)
 - [x] DB 스키마 설계 (docs/schema.md, schema.dbml)
 - [x] Spring Boot 패키지 구조 설계 (docs/backend-structure.md)
-- [x] 성경봉독 프로토타입 (backend — 갓피플 스크래핑, Redis 캐시)
+- [x] `common/` 패키지 (ApiResponse, ErrorCode, GlobalExceptionHandler 등)
+- [x] `church/` + `auth/` 패키지 (JWT 인증, 회원가입·로그인 API)
+- [x] `bible/` 패키지 (holybible.or.kr 스크래퍼, Redis 캐시, REST API)
 
 ### 진행 중
-- [ ] Spring Boot 새 프로젝트 세팅 (com.yebija 패키지 구조 적용)
+- (없음)
 
 ### 다음 할 일
-1. Spring Boot 프로젝트 생성 (start.spring.io)
-2. `common/` 패키지 — ApiResponse, ErrorCode, GlobalExceptionHandler
-3. `auth/` 패키지 — JWT 인증 구현
-4. `bible/` 패키지 — 기존 스크래퍼 이전
+1. `template/` 패키지 — 예배 순서 템플릿 CRUD
+2. `worship/` 패키지 — 예배 인스턴스·항목 CRUD
+3. `file/` 패키지 — 파일 업로드 (찬송가·교독문은 FILE 모드 전용)
+4. `ppt/` 패키지 — Apache POI 병합
+5. 배포 (Railway)
+
+### MVP 범위 확정 (ADR-010)
+- **성경봉독**: holybible.or.kr 스크래핑 → AUTO 슬라이드 생성 ✅
+- **찬송가·교독문**: FILE 첨부 전용 (AUTO 생성 없음)
+- `hymn/`, `responsive/` 패키지 MVP 제외
 
 ---
 

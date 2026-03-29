@@ -90,19 +90,21 @@ https://bible.godpeople.com/?bible=GAE&bid={bookIndex}&chap={chapter}
 - [x] `common/` 패키지 (ApiResponse, ErrorCode, GlobalExceptionHandler, BaseEntity, JpaConfig, RedisConfig, CorsConfig)
 - [x] `church/` 도메인 (Church, ChurchMember 엔티티 + Repository)
 - [x] `auth/` 패키지 (JwtProvider, JwtFilter, SecurityConfig, 회원가입·로그인 API)
-- [x] `bible/` 패키지 (BibleBook enum 66권, GodpeopleBibleScraper, BibleService Redis 캐시, BibleController)
+- [x] `bible/` 패키지 (BibleBook enum 66권, HolybibleScraper, BibleService Redis 캐시, BibleController)
 
 ### 진행 중
 - (없음)
 
 ### 다음 할 일 (순서대로)
-1. **Step 5** — `hymn/` 패키지 (갓피플 찬송가 스크래핑 + Redis 캐시)
-2. **Step 5** — `responsive/` 패키지 (교독문 JSON 번들, 장로교 1~184번)
-3. **Step 6** — `template/` 패키지 (예배 순서 템플릿 CRUD)
-4. **Step 7** — `worship/` 패키지 (예배 인스턴스·항목 CRUD)
-5. **Step 8** — `ppt/` 패키지 (Apache POI 병합)
-6. **Step 9** — `file/` 패키지 (파일 업로드)
-7. **Step 10** — 배포 (Railway)
+1. **Step 5** — `template/` 패키지 (예배 순서 템플릿 CRUD)
+2. **Step 6** — `worship/` 패키지 (예배 인스턴스·항목 CRUD)
+3. **Step 7** — `file/` 패키지 (파일 업로드)
+4. **Step 8** — `ppt/` 패키지 (Apache POI 병합)
+5. **Step 9** — 배포 (Railway)
+
+### MVP 범위 확정 (ADR-010)
+- `hymn/`, `responsive/` 패키지 MVP 제외
+- `HYMN`, `RESPONSIVE_READING` ItemType → FILE 모드 전용 (AUTO 없음)
 
 ### 현재 브랜치
 ```

@@ -154,9 +154,30 @@ http://www.holybible.or.kr/mobile/B_GAE/cgi/bibleftxt.php
 
 
 
+---
+
+### ADR-010 찬송가·교독문 슬라이드를 MVP에서 FILE 첨부 전용으로 변경
+
+**결정:** `hymn/`, `responsive/` 패키지를 MVP 범위에서 제외. 해당 항목은 FILE 모드(파일 첨부)만 지원
+
+**이유:**
+- 갓피플은 JS 렌더링 기반 → 서버사이드 스크래핑 불가 (ADR-009에서 확인)
+- 찬송가·교독문 AUTO 생성 없이도 핵심 가치(예배 PPT 병합) 전달 가능
+- 교회마다 수년간 다듬어온 찬송가·교독문 PPT 파일이 이미 있음 → FILE 모드로 충분
+
+**변경 내용:**
+- `HYMN`, `RESPONSIVE_READING` ItemType은 FILE 모드만 허용 (AUTO 지원 안 함)
+- `hymn/`, `responsive/` 패키지 구현 불필요
+- PPT 병합은 모든 항목이 FILE 첨부된 파일을 Apache POI로 합치는 방식
+
+**MVP 이후 검토:**
+- 찬송가: 한국찬송가공회 라이선스 계약 후 자체 DB 구축
+- 교독문: JSON 번들로 추가 가능 (공개 텍스트)
+
+---
+
 | 항목 | 현황 | 결정 시점 |
 |---|---|---|
 | 파일 스토리지 | 로컬(개발) → S3 or Railway 볼륨(운영) | 배포 단계 |
-| 찬송가 저작권 | 갓피플 스크래핑으로 임시 처리 | 서비스 안정화 후 한국찬송가공회 문의 |
 | Phase 3 AI 모델 | 설교문 초안은 GPT-4o vs Claude 재비교 | Phase 3 진입 시 |
 | 도메인 확정 | yebija.kr / yebija.app 후보 | 런칭 전 |
