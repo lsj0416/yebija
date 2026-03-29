@@ -92,15 +92,15 @@ https://bible.godpeople.com/?bible=GAE&bid={bookIndex}&chap={chapter}
 - [x] `auth/` 패키지 (JwtProvider, JwtFilter, SecurityConfig, 회원가입·로그인 API)
 - [x] `bible/` 패키지 (BibleBook enum 66권, HolybibleScraper, BibleService Redis 캐시, BibleController)
 - [x] `template/` 패키지 (ItemType/ItemMode enum, WorshipTemplate/TemplateItem 엔티티, CRUD API)
+- [x] `worship/` 패키지 (Worship/WorshipItem 엔티티, 예배 생성·수정·완료·삭제 + 항목 내용 수정 API)
 
 ### 진행 중
 - (없음)
 
 ### 다음 할 일 (순서대로)
-1. **Step 6** — `worship/` 패키지 (예배 인스턴스·항목 CRUD)
-2. **Step 7** — `file/` 패키지 (파일 업로드)
-3. **Step 8** — `ppt/` 패키지 (Apache POI 병합)
-4. **Step 9** — 배포 (Railway)
+1. **Step 7** — `file/` 패키지 (파일 업로드)
+2. **Step 8** — `ppt/` 패키지 (Apache POI 병합)
+3. **Step 9** — 배포 (Railway)
 
 ### MVP 범위 확정 (ADR-010)
 - `hymn/`, `responsive/` 패키지 MVP 제외
