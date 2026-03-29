@@ -35,6 +35,9 @@ dependencies {
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.5'
 
+    // Netty macOS native DNS (Apple Silicon)
+    runtimeOnly 'io.netty:netty-resolver-dns-native-macos::osx-aarch_64'
+
     // HTML Scraping
     implementation 'org.jsoup:jsoup:1.17.2'
 
