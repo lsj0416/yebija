@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: yebija-backend
+
+  main:
+    web-application-type: servlet
+
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/yebija?characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    show-sql: false
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+  cache:
+    type: redis
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+
+server:
+  port: ${PORT:8080}
+
+jwt:
+  secret: ${JWT_SECRET}
+  access-expiration: 1800000
+  refresh-expiration: 604800000
+
+cors:
+  allowed-origins: ${CORS_ORIGINS:http://localhost:5173}
+
+storage:
+  type: ${STORAGE_TYPE:local}
+  local:
+    path: ${FILE_UPLOAD_PATH:/tmp/yebija/uploads}
+
+openai:
+  api-key: ${OPENAI_API_KEY:}
+  model: gpt-4o
+  max-tokens: 2000
