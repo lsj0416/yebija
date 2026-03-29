@@ -1,8 +1,16 @@
 spring:
+  datasource:
+    username: root
+    password: root
+
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect:  # 자동 감지 (명시 불필요)
 
   data:
     redis:
@@ -14,3 +22,7 @@ jwt:
 
 cors:
   allowed-origins: http://localhost:5173,http://localhost:3000
+
+logging:
+  level:
+    com.yebija: DEBUG

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yebija.bible.domain.BibleBook;
 import com.yebija.bible.dto.BibleResponse;
 import com.yebija.bible.dto.BibleVerse;
-import com.yebija.bible.scraper.GodpeopleBibleScraper;
+import com.yebija.bible.scraper.HolybibleScraper;
 import com.yebija.common.exception.ErrorCode;
 import com.yebija.common.exception.YebijaException;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BibleService {
 
-    private final GodpeopleBibleScraper scraper;
+    private final HolybibleScraper scraper;
     private final RedisTemplate<String, Object> redisTemplate;
     private final ObjectMapper objectMapper;
 
