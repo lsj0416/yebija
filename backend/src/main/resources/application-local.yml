@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/yebija?characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: yebija
+    password: yebija1234
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect:  # 자동 감지 (명시 불필요)
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+jwt:
+  secret: local-dev-secret-key-must-be-at-least-32-characters-long-enough
+
+cors:
+  allowed-origins: http://localhost:5173,http://localhost:3000
+
+logging:
+  level:
+    com.yebija: DEBUG

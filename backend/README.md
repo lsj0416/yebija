@@ -38,8 +38,12 @@ OPENAI_API_KEY=        # Phase 2
 ### 2. DB 세팅
 
 ```bash
-mysql -u root -p < docs/schema.sql
+# MySQL에서 데이터베이스 생성
+mysql -u root -p -e "CREATE DATABASE yebija CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
 ```
+
+> 테이블은 `application-local.yml`의 `ddl-auto: update` 설정으로 앱 실행 시 JPA가 자동 생성합니다.
+> 스키마 참고: [docs/schema.md](../docs/schema.md)
 
 ### 3. 실행
 
@@ -95,7 +99,19 @@ GET  /api/responsive/{number}      교독문 조회
 ## 브랜치 전략
 
 ```
-main                # 운영 배포
-└── develop         # 통합 개발
-    └── feature/*   # 기능 개발
+main              # 배포 가능한 상태만
+└── develop       # 백+프론트 통합
+    └── feature/* # 기능 단위 개발 → PR → develop 머지
+```
+
+**브랜치 네이밍 예시**
+```
+feature/project-init
+feature/auth
+feature/bible-scraper
+feature/template
+feature/worship
+feature/hymn-scraper
+feature/ppt-merge
+feature/file-upload
 ```
