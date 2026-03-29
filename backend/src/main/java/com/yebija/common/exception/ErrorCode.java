@@ -24,7 +24,10 @@ public enum ErrorCode {
 
     // 성경
     BIBLE_SCRAPING_FAILED(502, "BIBLE_SCRAPING_FAILED", "성경 데이터를 가져오지 못했습니다."),
-    BIBLE_NOT_FOUND(404, "BIBLE_NOT_FOUND", "해당 성경 구절을 찾을 수 없습니다.");
+    BIBLE_NOT_FOUND(404, "BIBLE_NOT_FOUND", "해당 성경 구절을 찾을 수 없습니다."),
+
+    // 템플릿
+    TEMPLATE_NOT_FOUND(404, "TEMPLATE_NOT_FOUND", "존재하지 않는 템플릿입니다.");
 
     private final int httpStatus;
     private final String code;
