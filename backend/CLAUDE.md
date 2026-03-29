@@ -91,6 +91,8 @@ https://bible.godpeople.com/?bible=GAE&bid={bookIndex}&chap={chapter}
 - [x] `church/` 도메인 (Church, ChurchMember 엔티티 + Repository)
 - [x] `auth/` 패키지 (JwtProvider, JwtFilter, SecurityConfig, 회원가입·로그인 API)
 - [x] `bible/` 패키지 (BibleBook enum 66권, HolybibleScraper, BibleService Redis 캐시, BibleController)
+- [x] 로컬 개발 환경 (docker-compose.yml, .env.example, netty macOS DNS 패치)
+- [x] feature/project-init PR 작성 완료 (→ develop)
 
 ### 진행 중
 - (없음)
@@ -102,6 +104,11 @@ https://bible.godpeople.com/?bible=GAE&bid={bookIndex}&chap={chapter}
 4. **Step 8** — `ppt/` 패키지 (Apache POI 병합)
 5. **Step 9** — 배포 (Railway)
 
+### API 엔드포인트 (구현 완료)
+- `POST /api/auth/signup` — 회원가입 (name, denomination, adminEmail, password)
+- `POST /api/auth/login` — 로그인 (adminEmail, password)
+- `GET /api/bible/verses?book=요한복음&chapter=3&verseStart=1&verseEnd=16` — 성경 구절 조회
+
 ### MVP 범위 확정 (ADR-010)
 - `hymn/`, `responsive/` 패키지 MVP 제외
 - `HYMN`, `RESPONSIVE_READING` ItemType → FILE 모드 전용 (AUTO 없음)
@@ -110,7 +117,7 @@ https://bible.godpeople.com/?bible=GAE&bid={bookIndex}&chap={chapter}
 ```
 main
 └── develop
-    └── feature/project-init  ← 현재 작업 브랜치
+    └── feature/project-init  ← PR 작성 완료, 머지 대기
 ```
 
 ---

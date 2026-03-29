@@ -65,6 +65,8 @@ yebija/
 - [x] `common/` 패키지 (ApiResponse, ErrorCode, GlobalExceptionHandler 등)
 - [x] `church/` + `auth/` 패키지 (JWT 인증, 회원가입·로그인 API)
 - [x] `bible/` 패키지 (holybible.or.kr 스크래퍼, Redis 캐시, REST API)
+- [x] 로컬 개발 환경 (docker-compose.yml, .env.example)
+- [x] feature/project-init → develop PR 작성 완료
 
 ### 진행 중
 - (없음)
@@ -72,7 +74,7 @@ yebija/
 ### 다음 할 일
 1. `template/` 패키지 — 예배 순서 템플릿 CRUD
 2. `worship/` 패키지 — 예배 인스턴스·항목 CRUD
-3. `file/` 패키지 — 파일 업로드 (찬송가·교독문은 FILE 모드 전용)
+3. `file/` 패키지 — 파일 업로드
 4. `ppt/` 패키지 — Apache POI 병합
 5. 배포 (Railway)
 
