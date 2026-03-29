@@ -117,7 +117,24 @@ VITE_API_BASE_URL=http://localhost:8080
 
 ---
 
-## 개발 로드맵
+## 브랜치 전략
+
+```
+main              # 배포 가능한 상태만
+└── develop       # 백+프론트 통합
+    └── feature/* # 기능 단위 개발 → PR → develop 머지
+```
+
+**커밋 컨벤션**
+
+```
+feat:     새 기능
+fix:      버그 수정
+docs:     문서 작업
+refactor: 리팩토링
+test:     테스트
+chore:    빌드·설정 변경
+```
 
 - **Phase 1** — MVP: 예배 순서 템플릿, PPT 자동 생성·병합, 교회 계정
 - **Phase 2** — AI 기능: OpenAI 기반 설교 준비 보조, 크레딧 시스템

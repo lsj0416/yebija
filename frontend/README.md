@@ -64,7 +64,7 @@ src/
 ## 브랜치 전략
 
 ```
-main
-└── develop
-    └── feature/*
+main              # 배포 가능한 상태만
+└── develop       # 백+프론트 통합
+    └── feature/* # 기능 단위 개발 → PR → develop 머지
 ```

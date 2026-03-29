@@ -86,22 +86,25 @@ https://bible.godpeople.com/?bible=GAE&bid={bookIndex}&chap={chapter}
 > ⚠️ 세션 종료 시 이 섹션을 업데이트할 것
 
 ### 완료된 작업
-- [x] 성경봉독 프로토타입 (`GodpeopleScraper`, `BibleService`, `BibleController`)
-- [x] Redis 캐시 적용 (24시간)
-- [x] CORS 설정
+- [x] Gradle 프로젝트 뼈대 (Spring Boot 3.5.0 / Gradle 8.14.4)
+- [x] `common/` 패키지 (ApiResponse, ErrorCode, GlobalExceptionHandler, BaseEntity, JpaConfig, RedisConfig, CorsConfig)
+- [x] `church/` 도메인 (Church, ChurchMember 엔티티 + Repository)
+- [x] `auth/` 패키지 (JwtProvider, JwtFilter, SecurityConfig, 회원가입·로그인 API)
+- [x] `bible/` 패키지 (BibleBook enum 66권, HolybibleScraper, BibleService Redis 캐시, BibleController)
 
 ### 진행 중
-- [ ] 새 프로젝트 구조로 마이그레이션 (`com.yebija` 패키지)
+- (없음)
 
 ### 다음 할 일 (순서대로)
-1. **Step 1** — 프로젝트 생성 + `common/` 패키지 (ApiResponse, ErrorCode, GlobalExceptionHandler, BaseEntity)
-2. **Step 2** — `auth/` 패키지 (Church 엔티티, JWT, SecurityConfig, 회원가입·로그인 API)
-3. **Step 3** — `bible/` 패키지 (기존 스크래퍼 이전 + 리팩토링)
-4. **Step 4** — `template/`, `worship/` 패키지 (템플릿·예배 CRUD)
-5. **Step 5** — `hymn/`, `responsive/` 패키지
-6. **Step 6** — `ppt/` 패키지 (Apache POI 병합)
-7. **Step 7** — `file/` 패키지 (파일 업로드)
-8. **Step 8** — 배포 (Railway)
+1. **Step 5** — `template/` 패키지 (예배 순서 템플릿 CRUD)
+2. **Step 6** — `worship/` 패키지 (예배 인스턴스·항목 CRUD)
+3. **Step 7** — `file/` 패키지 (파일 업로드)
+4. **Step 8** — `ppt/` 패키지 (Apache POI 병합)
+5. **Step 9** — 배포 (Railway)
+
+### MVP 범위 확정 (ADR-010)
+- `hymn/`, `responsive/` 패키지 MVP 제외
+- `HYMN`, `RESPONSIVE_READING` ItemType → FILE 모드 전용 (AUTO 없음)
 
 ### 현재 브랜치
 ```
