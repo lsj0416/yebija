@@ -1,0 +1,93 @@
+package com.yebija.bible.domain;
+
+import com.yebija.common.exception.ErrorCode;
+import com.yebija.common.exception.YebijaException;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
+public enum BibleBook {
+
+    // 구약 (1~39)
+    GENESIS("창세기", 1),
+    EXODUS("출애굽기", 2),
+    LEVITICUS("레위기", 3),
+    NUMBERS("민수기", 4),
+    DEUTERONOMY("신명기", 5),
+    JOSHUA("여호수아", 6),
+    JUDGES("사사기", 7),
+    RUTH("룻기", 8),
+    SAMUEL_1("사무엘상", 9),
+    SAMUEL_2("사무엘하", 10),
+    KINGS_1("열왕기상", 11),
+    KINGS_2("열왕기하", 12),
+    CHRONICLES_1("역대상", 13),
+    CHRONICLES_2("역대하", 14),
+    EZRA("에스라", 15),
+    NEHEMIAH("느헤미야", 16),
+    ESTHER("에스더", 17),
+    JOB("욥기", 18),
+    PSALMS("시편", 19),
+    PROVERBS("잠언", 20),
+    ECCLESIASTES("전도서", 21),
+    SONG_OF_SONGS("아가", 22),
+    ISAIAH("이사야", 23),
+    JEREMIAH("예레미야", 24),
+    LAMENTATIONS("예레미야애가", 25),
+    EZEKIEL("에스겔", 26),
+    DANIEL("다니엘", 27),
+    HOSEA("호세아", 28),
+    JOEL("요엘", 29),
+    AMOS("아모스", 30),
+    OBADIAH("오바댜", 31),
+    JONAH("요나", 32),
+    MICAH("미가", 33),
+    NAHUM("나훔", 34),
+    HABAKKUK("하박국", 35),
+    ZEPHANIAH("스바냐", 36),
+    HAGGAI("학개", 37),
+    ZECHARIAH("스가랴", 38),
+    MALACHI("말라기", 39),
+
+    // 신약 (40~66)
+    MATTHEW("마태복음", 40),
+    MARK("마가복음", 41),
+    LUKE("누가복음", 42),
+    JOHN("요한복음", 43),
+    ACTS("사도행전", 44),
+    ROMANS("로마서", 45),
+    CORINTHIANS_1("고린도전서", 46),
+    CORINTHIANS_2("고린도후서", 47),
+    GALATIANS("갈라디아서", 48),
+    EPHESIANS("에베소서", 49),
+    PHILIPPIANS("빌립보서", 50),
+    COLOSSIANS("골로새서", 51),
+    THESSALONIANS_1("데살로니가전서", 52),
+    THESSALONIANS_2("데살로니가후서", 53),
+    TIMOTHY_1("디모데전서", 54),
+    TIMOTHY_2("디모데후서", 55),
+    TITUS("디도서", 56),
+    PHILEMON("빌레몬서", 57),
+    HEBREWS("히브리서", 58),
+    JAMES("야고보서", 59),
+    PETER_1("베드로전서", 60),
+    PETER_2("베드로후서", 61),
+    JOHN_1("요한일서", 62),
+    JOHN_2("요한이서", 63),
+    JOHN_3("요한삼서", 64),
+    JUDE("유다서", 65),
+    REVELATION("요한계시록", 66);
+
+    private final String koreanName;
+    private final int bookIndex;
+
+    public static BibleBook fromKoreanName(String name) {
+        for (BibleBook book : values()) {
+            if (book.koreanName.equals(name)) {
+                return book;
+            }
+        }
+        throw new YebijaException(ErrorCode.BIBLE_NOT_FOUND);
+    }
+}
