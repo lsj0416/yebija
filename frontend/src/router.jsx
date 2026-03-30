@@ -5,6 +5,8 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import TemplatePage from './pages/TemplatePage';
 import TemplateFormPage from './pages/TemplateFormPage';
+import WorshipPage from './pages/WorshipPage';
+import WorshipDetailPage from './pages/WorshipDetailPage';
 import PrivateRoute from './components/PrivateRoute';
 
 const router = createBrowserRouter([
@@ -20,7 +22,7 @@ const router = createBrowserRouter([
       {
         element: <PrivateRoute><AppLayout /></PrivateRoute>,
         children: [
-          { index: true,                element: <Navigate to="/templates" replace /> },
+          { index: true,                element: <Navigate to="/worships" replace /> },
           { path: 'dashboard',          element: <div style={{padding:'2rem',color:'var(--on-surface-variant)'}}>Dashboard — 준비 중</div> },
 
           // Step 3: 템플릿 관리
@@ -28,9 +30,9 @@ const router = createBrowserRouter([
           { path: 'templates/new',      element: <TemplateFormPage /> },
           { path: 'templates/:id/edit', element: <TemplateFormPage /> },
 
-          // Step 4: 예배 생성 (coming)
-          // { path: 'worships',           element: <WorshipPage /> },
-          // { path: 'worships/:id',       element: <WorshipDetailPage /> },
+          // Step 4: 예배 생성
+          { path: 'worships',           element: <WorshipPage /> },
+          { path: 'worships/:id',       element: <WorshipDetailPage /> },
         ],
       },
     ],
