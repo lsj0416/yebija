@@ -96,22 +96,29 @@ https://bible.godpeople.com/?bible=GAE&bid={bookIndex}&chap={chapter}
 - [x] `worship/` 패키지 (Worship/WorshipItem 엔티티, 예배 생성·수정·완료·삭제 + 항목 내용 수정 API)
 - [x] `file/` 패키지 (UploadedFile 엔티티, LocalFileStorage, 파일 업로드·다운로드·삭제 API)
 - [x] `ppt/` 패키지 (SlideGenerator 인터페이스, BIBLE·PRAYER·SERMON 슬라이드 생성, FILE 모드 병합, POST /api/worships/{id}/export)
+- [x] Swagger UI (springdoc-openapi 2.6.0, JWT Bearer 전역 인증)
+- [x] Railway 배포 (MySQL + Redis, Dockerfile 빌드, prod 프로파일)
 
 ### 진행 중
 - (없음)
 
 ### 다음 할 일 (순서대로)
-1. **Step 9** — 배포 (Railway)
+- **Phase 1 백엔드 완료** ✅ → 프론트엔드 개발 시작
 
 ### MVP 범위 확정 (ADR-010)
 - `hymn/`, `responsive/` 패키지 MVP 제외
 - `HYMN`, `RESPONSIVE_READING` ItemType → FILE 모드 전용 (AUTO 없음)
 
+### 배포 정보
+- Railway 백엔드: Dockerfile 빌드, `SPRING_PROFILES_ACTIVE=prod`
+- Swagger UI: `https://<railway-domain>/swagger-ui/index.html`
+- 프론트 배포 후 Railway 환경변수 `CORS_ORIGINS`에 Vercel URL 추가 필요
+
 ### 현재 브랜치
 ```
-main
+main  ← 배포 브랜치
 └── develop
-    └── feature/ppt-merge  ← 현재 작업 브랜치
+    └── feature/railway-deploy  ← 현재 작업 브랜치
 ```
 
 ---
