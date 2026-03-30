@@ -38,7 +38,10 @@ public enum ErrorCode {
     FILE_INVALID_TYPE(400, "FILE_INVALID_TYPE", "pptx 파일만 업로드할 수 있습니다."),
     FILE_UPLOAD_FAILED(500, "FILE_UPLOAD_FAILED", "파일 업로드에 실패했습니다."),
     FILE_NOT_FOUND(404, "FILE_NOT_FOUND", "파일을 찾을 수 없습니다."),
-    FILE_DELETE_FAILED(500, "FILE_DELETE_FAILED", "파일 삭제에 실패했습니다.");
+    FILE_DELETE_FAILED(500, "FILE_DELETE_FAILED", "파일 삭제에 실패했습니다."),
+
+    // PPT
+    PPT_MERGE_FAILED(500, "PPT_MERGE_FAILED", "PPT 생성에 실패했습니다.");
 
     private final int httpStatus;
     private final String code;
