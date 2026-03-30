@@ -1,0 +1,179 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.createBtn {
+  padding: 10px 18px;
+  background-color: #4f46e5;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.createBtn:hover {
+  background-color: #4338ca;
+}
+
+.empty {
+  text-align: center;
+  color: #888;
+  padding: 60px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.error {
+  color: #e53e3e;
+  font-size: 14px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.defaultCard {
+  border-color: #4f46e5;
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.templateName {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.defaultBadge {
+  margin-left: 8px;
+  padding: 2px 8px;
+  background-color: #4f46e5;
+  color: #fff;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.desc {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #888;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.editBtn {
+  padding: 6px 12px;
+  background: #f3f4f6;
+  color: #333;
+  border-radius: 6px;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.editBtn:hover {
+  background: #e5e7eb;
+}
+
+.deleteBtn {
+  padding: 6px 12px;
+  background: #fff;
+  color: #e53e3e;
+  border: 1px solid #e53e3e;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.deleteBtn:hover {
+  background: #fff5f5;
+}
+
+.itemList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.itemList li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #444;
+}
+
+.seq {
+  color: #aaa;
+  width: 20px;
+  flex-shrink: 0;
+}
+
+.itemLabel {
+  font-weight: 500;
+}
+
+.itemType {
+  color: #888;
+  font-size: 12px;
+}
+
+.mode {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.AUTO {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.FILE {
+  background: #fef9c3;
+  color: #854d0e;
+}

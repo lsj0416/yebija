@@ -93,12 +93,13 @@ chore:    빌드·설정 변경
 - [x] 슬라이드 스타일 옵션 (배경색·글자색·폰트 크기)
 - [x] **Step 1** — 프로젝트 초기화 (Vite, react-router-dom, axios, zustand 설정)
 - [x] **Step 2** — 로그인·회원가입 페이지 (authApi, authStore, LoginPage, RegisterPage, PrivateRoute)
+- [x] **Step 3** — 템플릿 관리 페이지 (templateApi, TemplatePage, TemplateFormPage, itemMeta)
 
 ### 진행 중
 - (없음)
 
 ### 다음 할 일 (순서대로)
-1. **Step 3** — 템플릿 관리 페이지 (순서 구성 UI)
+1. **Step 4** — 예배 생성 페이지 (항목별 입력 + AUTO/FILE 토글)
 3. **Step 3** — 템플릿 관리 페이지 (순서 구성 UI)
 4. **Step 4** — 예배 생성 페이지 (항목별 입력 + AUTO/FILE 토글)
 5. **Step 5** — PPT 생성·다운로드 플로우
