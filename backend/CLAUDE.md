@@ -1,6 +1,6 @@
 # backend
 
-> Spring Boot 3.2 / Java 17 / Gradle
+> Spring Boot 3.3.5 / Java 17 / Gradle
 > 패키지: `com.yebija`
 
 ---
@@ -49,10 +49,11 @@ responsive::{number}              # TTL 7d
 ## 주요 의존성
 
 ```groovy
-implementation 'org.jsoup:jsoup:1.17.2'              // 스크래핑
-implementation 'org.apache.poi:poi-ooxml:5.2.5'      // PPT 병합
-implementation 'io.jsonwebtoken:jjwt-api:0.12.5'     // JWT
-implementation 'org.springframework.boot:spring-boot-starter-webflux'  // OpenAI 호출
+implementation 'org.jsoup:jsoup:1.17.2'                                  // 스크래핑
+implementation 'org.apache.poi:poi-ooxml:5.2.5'                          // PPT 병합
+implementation 'io.jsonwebtoken:jjwt-api:0.12.5'                         // JWT
+implementation 'org.springframework.boot:spring-boot-starter-webflux'    // OpenAI 호출
+implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0' // Swagger
 ```
 
 ## 환경변수 목록
@@ -86,21 +87,21 @@ https://bible.godpeople.com/?bible=GAE&bid={bookIndex}&chap={chapter}
 > ⚠️ 세션 종료 시 이 섹션을 업데이트할 것
 
 ### 완료된 작업
-- [x] Gradle 프로젝트 뼈대 (Spring Boot 3.5.0 / Gradle 8.14.4)
+- [x] Gradle 프로젝트 뼈대 (Spring Boot 3.3.5 / Gradle 8.14.4)
 - [x] `common/` 패키지 (ApiResponse, ErrorCode, GlobalExceptionHandler, BaseEntity, JpaConfig, RedisConfig, CorsConfig)
 - [x] `church/` 도메인 (Church, ChurchMember 엔티티 + Repository)
 - [x] `auth/` 패키지 (JwtProvider, JwtFilter, SecurityConfig, 회원가입·로그인 API)
 - [x] `bible/` 패키지 (BibleBook enum 66권, HolybibleScraper, BibleService Redis 캐시, BibleController)
+- [x] `template/` 패키지 (ItemType/ItemMode enum, WorshipTemplate/TemplateItem 엔티티, CRUD API)
+- [x] `worship/` 패키지 (Worship/WorshipItem 엔티티, 예배 생성·수정·완료·삭제 + 항목 내용 수정 API)
+- [x] `file/` 패키지 (UploadedFile 엔티티, LocalFileStorage, 파일 업로드·다운로드·삭제 API)
+- [x] `ppt/` 패키지 (SlideGenerator 인터페이스, BIBLE·PRAYER·SERMON 슬라이드 생성, FILE 모드 병합, POST /api/worships/{id}/export)
 
 ### 진행 중
 - (없음)
 
 ### 다음 할 일 (순서대로)
-1. **Step 5** — `template/` 패키지 (예배 순서 템플릿 CRUD)
-2. **Step 6** — `worship/` 패키지 (예배 인스턴스·항목 CRUD)
-3. **Step 7** — `file/` 패키지 (파일 업로드)
-4. **Step 8** — `ppt/` 패키지 (Apache POI 병합)
-5. **Step 9** — 배포 (Railway)
+1. **Step 9** — 배포 (Railway)
 
 ### MVP 범위 확정 (ADR-010)
 - `hymn/`, `responsive/` 패키지 MVP 제외
@@ -110,7 +111,7 @@ https://bible.godpeople.com/?bible=GAE&bid={bookIndex}&chap={chapter}
 ```
 main
 └── develop
-    └── feature/project-init  ← 현재 작업 브랜치
+    └── feature/ppt-merge  ← 현재 작업 브랜치
 ```
 
 ---

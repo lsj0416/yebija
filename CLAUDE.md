@@ -36,7 +36,7 @@ yebija/
 | 레이어 | 기술 |
 |---|---|
 | 프론트엔드 | React 18 + Vite |
-| 백엔드 | Spring Boot 3.2 / Java 17 / Gradle |
+| 백엔드 | Spring Boot 3.3.5 / Java 17 / Gradle |
 | DB | MySQL 8 + Redis |
 | PPT 병합 | Apache POI |
 | AI (Phase 2) | OpenAI GPT-4o |

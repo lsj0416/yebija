@@ -1,6 +1,6 @@
 # 예비자 (Yebija) — Spring Boot 프로젝트 구조
 
-> Spring Boot 3.2 / Java 17 / Gradle 기준
+> Spring Boot 3.3.5 / Java 17 / Gradle 기준
 > 패키지: `com.yebija`
 
 ---
@@ -24,7 +24,7 @@
 |---|---|
 | Project | Gradle - Groovy |
 | Language | Java |
-| Spring Boot | 3.2.x |
+| Spring Boot | 3.3.5 |
 | Group | com.yebija |
 | Artifact | yebija-backend |
 | Packaging | Jar |
@@ -297,12 +297,13 @@ OpenAI API 호출 + 크레딧 차감 트랜잭션 처리.
 // build.gradle
 
 dependencies {
-    // Spring Boot
+    // Spring Boot Core
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'  // OpenAI 호출
 
     // DB
     runtimeOnly 'com.mysql:mysql-connector-j'
@@ -318,8 +319,8 @@ dependencies {
     // PPT 병합
     implementation 'org.apache.poi:poi-ooxml:5.2.5'
 
-    // HTTP 클라이언트 (OpenAI API 호출)
-    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    // Swagger (SpringDoc OpenAPI)
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
 
     // Lombok
     compileOnly 'org.projectlombok:lombok'

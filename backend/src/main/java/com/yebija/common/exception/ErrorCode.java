@@ -24,7 +24,24 @@ public enum ErrorCode {
 
     // 성경
     BIBLE_SCRAPING_FAILED(502, "BIBLE_SCRAPING_FAILED", "성경 데이터를 가져오지 못했습니다."),
-    BIBLE_NOT_FOUND(404, "BIBLE_NOT_FOUND", "해당 성경 구절을 찾을 수 없습니다.");
+    BIBLE_NOT_FOUND(404, "BIBLE_NOT_FOUND", "해당 성경 구절을 찾을 수 없습니다."),
+
+    // 템플릿
+    TEMPLATE_NOT_FOUND(404, "TEMPLATE_NOT_FOUND", "존재하지 않는 템플릿입니다."),
+
+    // 예배
+    WORSHIP_NOT_FOUND(404, "WORSHIP_NOT_FOUND", "존재하지 않는 예배입니다."),
+    WORSHIP_ITEM_NOT_FOUND(404, "WORSHIP_ITEM_NOT_FOUND", "존재하지 않는 예배 항목입니다."),
+
+    // 파일
+    FILE_EMPTY(400, "FILE_EMPTY", "업로드할 파일이 없습니다."),
+    FILE_INVALID_TYPE(400, "FILE_INVALID_TYPE", "pptx 파일만 업로드할 수 있습니다."),
+    FILE_UPLOAD_FAILED(500, "FILE_UPLOAD_FAILED", "파일 업로드에 실패했습니다."),
+    FILE_NOT_FOUND(404, "FILE_NOT_FOUND", "파일을 찾을 수 없습니다."),
+    FILE_DELETE_FAILED(500, "FILE_DELETE_FAILED", "파일 삭제에 실패했습니다."),
+
+    // PPT
+    PPT_MERGE_FAILED(500, "PPT_MERGE_FAILED", "PPT 생성에 실패했습니다.");
 
     private final int httpStatus;
     private final String code;
