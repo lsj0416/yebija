@@ -13,8 +13,8 @@ function FileAttachment({ itemId, fileStorageKey, onAttached }) {
 
   const handleFile = async (file) => {
     if (!file) return;
-    if (!file.name.endsWith('.pptx')) {
-      setError('.pptx 파일만 업로드할 수 있습니다.');
+    if (!file.name.toLowerCase().endsWith('.pptx')) {
+      setError('.pptx 파일만 업로드할 수 있습니다. (.ppt는 지원하지 않습니다)');
       return;
     }
     setError('');
@@ -24,8 +24,13 @@ function FileAttachment({ itemId, fileStorageKey, onAttached }) {
       const data = res.data.data;
       setAttached(data);
       onAttached(data.storageKey);
-    } catch {
-      setError('업로드에 실패했습니다.');
+    } catch (err) {
+      const code = err.response?.data?.error?.code;
+      setError(
+        code === 'FILE_INVALID_TYPE'
+          ? '올바른 .pptx 파일이 아닙니다. 구형 .ppt 파일은 지원하지 않습니다.'
+          : '업로드에 실패했습니다.'
+      );
     } finally {
       setUploading(false);
     }
