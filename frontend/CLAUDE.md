@@ -62,11 +62,12 @@ main              # 배포 가능한 상태만 (Vercel 자동 배포)
 
 **브랜치 네이밍**
 ```
-feature/project-init
-feature/auth
-feature/template
-feature/worship
-feature/ppt-export
+feature/frontend-init        # Step 1 — 프로젝트 초기화 (완료)
+feature/auth                 # Step 2 — 로그인·회원가입 페이지
+feature/frontend-template    # Step 3 — 템플릿 관리 페이지 (backend feature/template 사용됨)
+feature/frontend-worship     # Step 4 — 예배 생성 페이지 (backend feature/worship 사용됨)
+feature/ppt-export           # Step 5 — PPT 생성·다운로드 플로우
+feature/ai-recommend         # Step 6 — AI 추천 UI (Phase 2)
 ```
 
 **커밋 컨벤션**
