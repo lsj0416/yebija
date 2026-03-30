@@ -47,6 +47,40 @@ SERMON            → SermonInput.jsx    (제목 + 본문)
 
 ---
 
+## 브랜치 전략
+
+```
+main              # 배포 가능한 상태만 (Vercel 자동 배포)
+└── develop       # 백+프론트 통합
+    └── feature/* # 기능 단위 개발 → PR → develop 머지
+```
+
+**규칙**
+- `main` 직접 푸시 금지 — 항상 PR
+- PR 대상은 항상 `develop` (main으로 직접 PR 금지)
+- `develop` → `main` PR은 배포 준비 완료 시점에만
+
+**브랜치 네이밍**
+```
+feature/project-init
+feature/auth
+feature/template
+feature/worship
+feature/ppt-export
+```
+
+**커밋 컨벤션**
+```
+feat:     새 기능
+fix:      버그 수정
+docs:     문서
+refactor: 리팩토링
+style:    스타일(포맷, CSS)
+chore:    빌드·설정 변경
+```
+
+---
+
 ## 현재 상태
 
 > ⚠️ 세션 종료 시 이 섹션을 업데이트할 것
