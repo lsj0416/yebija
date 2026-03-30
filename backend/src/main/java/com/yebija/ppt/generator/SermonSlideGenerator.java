@@ -22,9 +22,9 @@ public class SermonSlideGenerator implements SlideGenerator {
     public void addSlides(XMLSlideShow pptx, WorshipItem item) {
         Map<String, Object> content = item.getContent();
 
-        String title = content != null ? (String) content.getOrDefault("title", "") : "";
-        String bibleRef = content != null ? (String) content.getOrDefault("bibleRef", "") : "";
-        String preacher = content != null ? (String) content.getOrDefault("preacher", "") : "";
+        String title     = content != null ? (String) content.getOrDefault("title",     "") : "";
+        String bibleRef  = content != null ? (String) content.getOrDefault("scripture", "") : "";  // 프론트: "scripture"
+        String preacher  = content != null ? (String) content.getOrDefault("preacher",  "") : "";
 
         XSLFSlide slide = pptx.createSlide();
         SlideUtils.setBackground(slide);

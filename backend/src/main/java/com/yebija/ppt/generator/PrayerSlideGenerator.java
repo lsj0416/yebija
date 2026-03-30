@@ -22,8 +22,8 @@ public class PrayerSlideGenerator implements SlideGenerator {
     public void addSlides(XMLSlideShow pptx, WorshipItem item) {
         Map<String, Object> content = item.getContent();
 
-        String role = content != null ? (String) content.getOrDefault("role", "기도") : "기도";
-        String leader = content != null ? (String) content.getOrDefault("leader", "") : "";
+        String role   = content != null ? (String) content.getOrDefault("role",   "기도") : "기도";
+        String leader = content != null ? (String) content.getOrDefault("person", "") : "";  // 프론트: "person"
 
         XSLFSlide slide = pptx.createSlide();
         SlideUtils.setBackground(slide);

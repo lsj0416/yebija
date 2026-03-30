@@ -31,9 +31,15 @@ public class BibleSlideGenerator implements SlideGenerator {
         if (content == null) return;
 
         String book = (String) content.get("book");
-        int chapter = ((Number) content.get("chapter")).intValue();
-        int verseStart = ((Number) content.get("verseStart")).intValue();
-        int verseEnd = ((Number) content.get("verseEnd")).intValue();
+        Number chapterNum    = (Number) content.get("chapter");
+        Number verseStartNum = (Number) content.get("verseStart");
+        Number verseEndNum   = (Number) content.get("verseEnd");
+
+        if (book == null || chapterNum == null || verseStartNum == null || verseEndNum == null) return;
+
+        int chapter    = chapterNum.intValue();
+        int verseStart = verseStartNum.intValue();
+        int verseEnd   = verseEndNum.intValue();
 
         BibleResponse response = bibleService.getVerses(book, chapter, verseStart, verseEnd);
         String baseRef = book + " " + chapter + ":" + verseStart
