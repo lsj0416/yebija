@@ -1,108 +1,118 @@
+/* AuthPage — centered sanctuary card */
 .container {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f5f5f5;
-  padding: 24px;
+  background-color: var(--surface-container-low);
+  padding: var(--spacing-6);
 }
 
 .card {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
-  padding: 40px 36px;
+  background: var(--surface-container-lowest);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-float);
+  padding: var(--spacing-10) 2.5rem;
   width: 100%;
   max-width: 420px;
 }
 
 .title {
-  font-size: 28px;
+  font-family: var(--font-display);
+  font-size: 2rem;
   font-weight: 700;
-  color: #1a1a1a;
-  margin: 0 0 4px;
+  color: var(--on-surface);
   text-align: center;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--spacing-1);
 }
 
 .subtitle {
-  font-size: 14px;
-  color: #888;
+  font-size: 0.875rem;
+  color: var(--on-surface-variant);
   text-align: center;
-  margin: 0 0 32px;
+  margin-bottom: var(--spacing-8);
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--spacing-5);
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--spacing-2);
 }
 
 .field label {
-  font-size: 14px;
+  font-size: 0.8125rem;
   font-weight: 500;
-  color: #333;
+  color: var(--on-surface-variant);
+  letter-spacing: 0.01em;
 }
 
 .field input,
 .field select {
-  padding: 10px 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
+  padding: 0.6875rem var(--spacing-4);
+  border: 1px solid rgba(174, 178, 182, 0.15);
+  border-radius: var(--radius-md);
+  font-size: 0.9375rem;
   outline: none;
-  transition: border-color 0.2s;
+  background: var(--surface-container-lowest);
+  color: var(--on-surface);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.field input::placeholder {
+  color: var(--on-surface-muted);
 }
 
 .field input:focus,
 .field select:focus {
-  border-color: #4f46e5;
+  border-color: rgba(65, 98, 129, 0.5);
+  box-shadow: 0 0 0 3px rgba(65, 98, 129, 0.08);
 }
 
 .error {
-  font-size: 13px;
-  color: #e53e3e;
-  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--error);
 }
 
 .submitBtn {
-  margin-top: 8px;
-  padding: 12px;
-  background-color: #4f46e5;
-  color: #fff;
+  margin-top: var(--spacing-2);
+  padding: 0.75rem;
+  background: var(--gradient-primary);
+  color: var(--on-primary);
   border: none;
-  border-radius: 8px;
-  font-size: 15px;
+  border-radius: var(--radius-md);
+  font-size: 0.9375rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  letter-spacing: 0.01em;
+  transition: opacity 0.2s;
 }
 
 .submitBtn:hover:not(:disabled) {
-  background-color: #4338ca;
+  opacity: 0.88;
 }
 
 .submitBtn:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .link {
-  margin-top: 20px;
+  margin-top: var(--spacing-6);
   text-align: center;
-  font-size: 14px;
-  color: #666;
+  font-size: 0.875rem;
+  color: var(--on-surface-variant);
 }
 
 .link a {
-  color: #4f46e5;
+  color: var(--primary);
   font-weight: 500;
-  text-decoration: none;
 }
 
 .link a:hover {

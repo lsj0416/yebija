@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import App from './App';
+import AppLayout from './components/layout/AppLayout';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import TemplatePage from './pages/TemplatePage';
@@ -11,18 +12,27 @@ const router = createBrowserRouter([
     path: '/',
     element: <App />,
     children: [
-      { index: true, element: <PrivateRoute><Navigate to="/templates" replace /></PrivateRoute> },
-      { path: 'login', element: <LoginPage /> },
+      // Public routes
+      { path: 'login',    element: <LoginPage /> },
       { path: 'register', element: <RegisterPage /> },
 
-      // Step 3: 템플릿 관리
-      { path: 'templates', element: <PrivateRoute><TemplatePage /></PrivateRoute> },
-      { path: 'templates/new', element: <PrivateRoute><TemplateFormPage /></PrivateRoute> },
-      { path: 'templates/:id/edit', element: <PrivateRoute><TemplateFormPage /></PrivateRoute> },
+      // Authenticated routes — AppLayout shell
+      {
+        element: <PrivateRoute><AppLayout /></PrivateRoute>,
+        children: [
+          { index: true,                element: <Navigate to="/templates" replace /> },
+          { path: 'dashboard',          element: <div style={{padding:'2rem',color:'var(--on-surface-variant)'}}>Dashboard — 준비 중</div> },
 
-      // Step 4: 예배 생성
-      // { path: 'worships', element: <PrivateRoute><WorshipPage /></PrivateRoute> },
-      // { path: 'worships/:id', element: <PrivateRoute><WorshipDetailPage /></PrivateRoute> },
+          // Step 3: 템플릿 관리
+          { path: 'templates',          element: <TemplatePage /> },
+          { path: 'templates/new',      element: <TemplateFormPage /> },
+          { path: 'templates/:id/edit', element: <TemplateFormPage /> },
+
+          // Step 4: 예배 생성 (coming)
+          // { path: 'worships',           element: <WorshipPage /> },
+          // { path: 'worships/:id',       element: <WorshipDetailPage /> },
+        ],
+      },
     ],
   },
 ]);

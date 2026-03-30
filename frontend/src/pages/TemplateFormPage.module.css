@@ -1,45 +1,54 @@
+/* TemplateFormPage — editorial form layout */
 .container {
   max-width: 720px;
-  margin: 0 auto;
-  padding: 32px 24px;
 }
 
 .header {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 28px;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-8);
 }
 
+/* Tertiary back button */
 .backBtn {
   background: none;
   border: none;
-  color: #4f46e5;
-  font-size: 14px;
+  color: var(--primary);
+  font-size: 0.875rem;
+  font-family: var(--font-body);
   cursor: pointer;
   padding: 0;
+  transition: opacity 0.15s;
+}
+
+.backBtn:hover {
+  opacity: 0.7;
 }
 
 .header h1 {
-  font-size: 22px;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--on-surface);
+  letter-spacing: -0.02em;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: var(--spacing-6);
 }
 
+/* Section — white card, no border */
 .section {
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 24px;
+  background: var(--surface-container-lowest);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  box-shadow: var(--shadow-float);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--spacing-5);
 }
 
 .sectionHeader {
@@ -49,105 +58,119 @@
 }
 
 .sectionHeader h2 {
-  font-size: 16px;
+  font-family: var(--font-display);
+  font-size: 1rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--on-surface);
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--spacing-2);
 }
 
 .field label {
-  font-size: 14px;
+  font-size: 0.8125rem;
   font-weight: 500;
-  color: #333;
+  color: var(--on-surface-variant);
+  letter-spacing: 0.01em;
 }
 
 .field input {
-  padding: 10px 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
+  padding: 0.6875rem var(--spacing-4);
+  border: 1px solid rgba(174, 178, 182, 0.15);
+  border-radius: var(--radius-md);
+  font-size: 0.9375rem;
   outline: none;
+  background: var(--surface-container-lowest);
+  color: var(--on-surface);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.field input::placeholder {
+  color: var(--on-surface-muted);
 }
 
 .field input:focus {
-  border-color: #4f46e5;
+  border-color: rgba(65, 98, 129, 0.5);
+  box-shadow: 0 0 0 3px rgba(65, 98, 129, 0.08);
 }
 
 .checkboxLabel {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: #333;
+  gap: var(--spacing-2);
+  font-size: 0.875rem;
+  color: var(--on-surface-variant);
   cursor: pointer;
 }
 
+/* Primary add button — gradient */
 .addBtn {
-  padding: 7px 14px;
-  background: #4f46e5;
-  color: #fff;
+  padding: 0.5rem 1rem;
+  background: var(--gradient-primary);
+  color: var(--on-primary);
   border: none;
-  border-radius: 7px;
-  font-size: 13px;
+  border-radius: var(--radius-md);
+  font-size: 0.8125rem;
   font-weight: 600;
   cursor: pointer;
+  transition: opacity 0.2s;
+  white-space: nowrap;
 }
 
 .addBtn:hover {
-  background: #4338ca;
+  opacity: 0.88;
 }
 
 .itemList {
   list-style: none;
-  padding: 0;
-  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--spacing-3);
 }
 
+/* Item row — subtle surface, no border */
 .itemRow {
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: #f9fafb;
-  border-radius: 8px;
-  padding: 10px 12px;
+  gap: var(--spacing-3);
+  background: var(--surface-container-low);
+  border-radius: var(--radius-md);
+  padding: 0.625rem var(--spacing-4);
 }
 
 .seq {
-  width: 20px;
+  width: 1.25rem;
   text-align: center;
-  font-size: 13px;
-  color: #aaa;
+  font-size: 0.8125rem;
+  color: var(--on-surface-muted);
   flex-shrink: 0;
 }
 
 .itemFields {
   display: flex;
-  gap: 8px;
+  gap: var(--spacing-2);
   flex: 1;
   flex-wrap: wrap;
 }
 
 .itemFields select,
 .itemFields input {
-  padding: 7px 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 13px;
-  background: #fff;
+  padding: 0.4375rem 0.625rem;
+  border: 1px solid rgba(174, 178, 182, 0.15);
+  border-radius: var(--radius-md);
+  font-size: 0.8125rem;
+  background: var(--surface-container-lowest);
+  color: var(--on-surface);
   outline: none;
+  transition: border-color 0.2s;
 }
 
 .itemFields select:focus,
 .itemFields input:focus {
-  border-color: #4f46e5;
+  border-color: rgba(65, 98, 129, 0.5);
 }
 
 .itemFields input {
@@ -155,23 +178,33 @@
   min-width: 80px;
 }
 
+.itemFields input::placeholder {
+  color: var(--on-surface-muted);
+}
+
 .itemActions {
   display: flex;
-  gap: 4px;
+  gap: var(--spacing-1);
   flex-shrink: 0;
 }
 
 .itemActions button {
-  width: 28px;
-  height: 28px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background: #fff;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--surface-container-high);
+  color: var(--on-surface-variant);
   cursor: pointer;
-  font-size: 12px;
+  font-size: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background 0.15s;
+}
+
+.itemActions button:hover:not(:disabled) {
+  background: var(--surface-container-highest);
 }
 
 .itemActions button:disabled {
@@ -180,58 +213,68 @@
 }
 
 .removeBtn {
-  color: #e53e3e !important;
-  border-color: #e53e3e !important;
+  color: var(--error) !important;
+}
+
+.removeBtn:hover:not(:disabled) {
+  background: var(--error-container) !important;
 }
 
 .emptyItems {
   text-align: center;
-  color: #aaa;
-  font-size: 14px;
-  padding: 20px 0;
+  color: var(--on-surface-muted);
+  font-size: 0.875rem;
+  padding: var(--spacing-8) 0;
 }
 
 .error {
-  color: #e53e3e;
-  font-size: 13px;
+  color: var(--error);
+  font-size: 0.8125rem;
 }
 
 .footer {
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
+  gap: var(--spacing-3);
+  padding-top: var(--spacing-2);
 }
 
+/* Tertiary cancel */
 .cancelBtn {
-  padding: 11px 20px;
-  background: #f3f4f6;
-  color: #333;
+  padding: 0.6875rem 1.25rem;
+  background: transparent;
+  color: var(--on-surface-variant);
   border: none;
-  border-radius: 8px;
-  font-size: 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-family: var(--font-body);
   cursor: pointer;
+  transition: background 0.15s;
 }
 
 .cancelBtn:hover {
-  background: #e5e7eb;
+  background: var(--surface-container-high);
 }
 
+/* Primary submit — gradient */
 .submitBtn {
-  padding: 11px 24px;
-  background: #4f46e5;
-  color: #fff;
+  padding: 0.6875rem 1.5rem;
+  background: var(--gradient-primary);
+  color: var(--on-primary);
   border: none;
-  border-radius: 8px;
-  font-size: 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
   font-weight: 600;
+  font-family: var(--font-body);
   cursor: pointer;
+  transition: opacity 0.2s;
 }
 
 .submitBtn:hover:not(:disabled) {
-  background: #4338ca;
+  opacity: 0.88;
 }
 
 .submitBtn:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
 }
