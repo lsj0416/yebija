@@ -1,0 +1,240 @@
+.container {
+  max-width: 1100px;
+}
+
+.loading {
+  color: var(--on-surface-muted);
+  font-size: 0.875rem;
+}
+
+/* 상단 바 */
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-3);
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: 0.875rem;
+}
+
+.breadLink {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.breadLink:hover {
+  text-decoration: underline;
+}
+
+.breadSep {
+  color: var(--on-surface-muted);
+}
+
+.breadCurrent {
+  color: var(--on-surface-variant);
+}
+
+.topActions {
+  display: flex;
+  gap: var(--spacing-3);
+}
+
+.draftBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: 0.5rem 1rem;
+  background: var(--surface-container-high);
+  color: var(--on-surface);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-family: var(--font-body);
+  cursor: default;
+}
+
+.mergeBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: 0.5rem 1.25rem;
+  background: var(--gradient-primary);
+  color: var(--on-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.mergeBtn:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+.mergeBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pageTitle {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--on-surface);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--spacing-6);
+}
+
+/* 2패널 */
+.panels {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: var(--spacing-5);
+  align-items: start;
+}
+
+/* 좌측 패널 */
+.leftPanel {
+  background: var(--surface-container-lowest);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-float);
+  padding: var(--spacing-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.panelLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--on-surface-muted);
+}
+
+.orderList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.orderItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: 0.75rem var(--spacing-4);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.15s;
+  background: transparent;
+}
+
+.orderItem:hover {
+  background: var(--surface-container-low);
+}
+
+.selected {
+  background: var(--primary) !important;
+  color: #fff;
+}
+
+.selected .orderItemName {
+  color: #fff;
+}
+
+.selected .orderItemSub {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.selected .grip {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.selected .orderItemIcon {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.grip {
+  color: var(--on-surface-muted);
+  flex-shrink: 0;
+  cursor: grab;
+}
+
+.orderItemInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.orderItemName {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--on-surface);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.orderItemSub {
+  font-size: 0.8125rem;
+  color: var(--on-surface-variant);
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.orderItemIcon {
+  font-size: 1rem;
+  color: var(--on-surface-muted);
+  flex-shrink: 0;
+}
+
+.addItemBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  padding: 0.75rem;
+  background: transparent;
+  border: 1px dashed rgba(65, 98, 129, 0.3);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--on-surface-variant);
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  margin-top: var(--spacing-2);
+}
+
+.addItemBtn:hover {
+  background: rgba(65, 98, 129, 0.05);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* 우측 패널 */
+.rightPanel {
+  min-height: 400px;
+}
+
+.emptyEditor {
+  background: var(--surface-container-lowest);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-float);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  color: var(--on-surface-muted);
+  font-size: 0.875rem;
+}
