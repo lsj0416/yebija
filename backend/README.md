@@ -6,7 +6,7 @@
 
 ## 기술 스택
 
-- Spring Boot 3.2 / Java 17 / Gradle
+- Spring Boot 3.3.5 / Java 17 / Gradle
 - Spring Security + JWT
 - Spring Data JPA + MySQL 8
 - Spring Data Redis
@@ -92,6 +92,7 @@ GET  /api/hymns/{number}           찬송가 조회
 GET  /api/responsive/{number}      교독문 조회
 ```
 
+> Swagger UI (로컬): http://localhost:8080/swagger-ui/index.html
 > 전체 명세: [docs/api.md](../docs/api.md)
 
 ---
