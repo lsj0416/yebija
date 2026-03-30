@@ -106,7 +106,7 @@ chore:    빌드·설정 변경
 ```
 main
 └── develop
-    └── feature/project-init  ← 현재 작업 브랜치
+    └── feature/frontend-init  ← 현재 작업 브랜치
 ```
 
 ---
