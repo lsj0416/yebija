@@ -118,7 +118,7 @@ https://bible.godpeople.com/?bible=GAE&bid={bookIndex}&chap={chapter}
 ```
 main  ← 배포 브랜치
 └── develop
-    └── feature/railway-deploy  ← 현재 작업 브랜치
+    └── feature/ppt-export  ← 현재 작업 브랜치
 ```
 
 ---

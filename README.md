@@ -21,8 +21,8 @@
 
 | 레이어 | 기술 |
 |---|---|
-| 프론트엔드 | React 18 + Vite |
-| 백엔드 | Spring Boot 3.2 / Java 17 |
+| 프론트엔드 | React 19 + Vite |
+| 백엔드 | Spring Boot 3.3.5 / Java 17 |
 | 데이터베이스 | MySQL 8 + Redis |
 | PPT 병합 | Apache POI |
 | AI | OpenAI GPT-4o *(Phase 2)* |
@@ -53,13 +53,14 @@ yebija/
 ### 백엔드 실행
 
 ```bash
-cd backend
+cd /path/to/yebija
 
-# 환경변수 설정
+# 환경변수 설정 (레포 루트)
 cp .env.example .env
 # .env 파일에 DB, Redis, JWT 설정 입력
 
 # 실행
+cd backend
 ./gradlew bootRun
 ```
 
@@ -68,10 +69,8 @@ cp .env.example .env
 ```bash
 cd frontend
 
-npm install
-
-# 환경변수 설정
-cp .env.example .env.local
+# 환경변수 확인
+# frontend/.env.local
 # VITE_API_BASE_URL=http://localhost:8080
 
 npm run dev

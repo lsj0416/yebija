@@ -6,7 +6,7 @@
 
 ## 기술 스택
 
-- React 18 + Vite
+- React 19 + Vite
 - PptxGenJS (자동 생성 슬라이드)
 - Axios (API 호출)
 
@@ -17,7 +17,7 @@
 ### 1. 환경변수 설정
 
 ```bash
-cp .env.example .env.local
+# frontend/.env.local 파일 확인 또는 생성
 ```
 
 ```

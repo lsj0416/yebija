@@ -1,6 +1,6 @@
 # frontend
 
-> React 18 + Vite
+> React 19 + Vite
 > 패키지명: frontend
 
 ---
@@ -111,7 +111,7 @@ chore:    빌드·설정 변경
 ```
 main
 └── develop
-    └── feature/frontend-init  ← 현재 작업 브랜치
+    └── feature/ppt-export  ← 현재 작업 브랜치
 ```
 
 ---

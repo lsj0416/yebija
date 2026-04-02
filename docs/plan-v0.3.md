@@ -236,7 +236,7 @@ Spring Boot 3 (Railway)
 
 | 레이어 | 기술 | 역할 |
 |---|---|---|
-| 프론트엔드 | React 18 + Vite | UI, 폼 입력, 슬라이드 미리보기, 파일 업로드 |
+| 프론트엔드 | React 19 + Vite | UI, 폼 입력, 슬라이드 미리보기, 파일 업로드 |
 | PPT 자동 생성 | PptxGenJS | 성경봉독·기도·설교 등 자동 생성 슬라이드 |
 | 백엔드 | Spring Boot 3 / Java 17 | API, 인증, 스크래핑 프록시, PPT 병합 |
 | PPT 병합 | Apache POI | 첨부 파일 + 자동 생성 슬라이드 병합 |
