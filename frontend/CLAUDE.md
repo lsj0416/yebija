@@ -1,6 +1,6 @@
 # frontend
 
-> React 18 + Vite
+> React 19 + Vite
 > 패키지명: frontend
 
 ---
@@ -95,12 +95,13 @@ chore:    빌드·설정 변경
 - [x] **Step 2** — 로그인·회원가입 페이지 (authApi, authStore, LoginPage, RegisterPage, PrivateRoute)
 - [x] **Step 3** — 템플릿 관리 페이지 (templateApi, TemplatePage, TemplateFormPage, itemMeta)
 - [x] **Step 4** — 예배 생성 페이지 (worshipApi, bibleApi, books.js, WorshipPage, WorshipDetailPage, 항목별 InputComponent)
+- [x] **Step 5** — PPT 생성·다운로드 플로우 (fileApi, FileAttachment, exportPpt → blob 다운로드)
 
 ### 진행 중
 - (없음)
 
 ### 다음 할 일 (순서대로)
-1. **Step 5** — PPT 생성·다운로드 플로우
+1. **Step 6** — AI 추천 UI (Phase 2)
 3. **Step 3** — 템플릿 관리 페이지 (순서 구성 UI)
 4. **Step 4** — 예배 생성 페이지 (항목별 입력 + AUTO/FILE 토글)
 5. **Step 5** — PPT 생성·다운로드 플로우
@@ -110,7 +111,7 @@ chore:    빌드·설정 변경
 ```
 main
 └── develop
-    └── feature/frontend-init  ← 현재 작업 브랜치
+    └── feature/ppt-export  ← 현재 작업 브랜치
 ```
 
 ---

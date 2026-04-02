@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import { GripVertical, Save, CheckCheck } from 'lucide-react';
-import { getWorship, completeWorship } from '../api/worshipApi';
+import { GripVertical, Save, Download } from 'lucide-react';
+import { getWorship } from '../api/worshipApi';
+import { exportPpt } from '../api/fileApi';
 import { ITEM_TYPE_LABELS } from '../utils/itemMeta';
 import ItemEditor from '../components/worship/ItemEditor';
 import styles from './WorshipDetailPage.module.css';
@@ -22,7 +23,8 @@ function WorshipDetailPage() {
   const [worship,      setWorship]      = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [loading,      setLoading]      = useState(true);
-  const [completing,   setCompleting]   = useState(false);
+  const [exporting,    setExporting]    = useState(false);
+  const [exportError,  setExportError]  = useState('');
 
   useEffect(() => {
     getWorship(id)
@@ -41,16 +43,24 @@ function WorshipDetailPage() {
     if (refreshed) setSelectedItem(refreshed);
   };
 
-  const handleComplete = async () => {
-    if (!window.confirm('예배 준비를 완료 상태로 변경할까요?')) return;
-    setCompleting(true);
+  const handleExport = async () => {
+    setExporting(true);
+    setExportError('');
     try {
-      const res = await completeWorship(id);
-      setWorship(res.data.data);
+      const res = await exportPpt(id);
+      const url  = URL.createObjectURL(new Blob([res.data], {
+        type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      }));
+      const title = worship.title || `worship-${id}`;
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${title}.pptx`;
+      a.click();
+      URL.revokeObjectURL(url);
     } catch {
-      alert('상태 변경에 실패했습니다.');
+      setExportError('PPT 생성에 실패했습니다. 모든 항목의 내용을 확인해주세요.');
     } finally {
-      setCompleting(false);
+      setExporting(false);
     }
   };
 
@@ -77,22 +87,22 @@ function WorshipDetailPage() {
           <button className={styles.draftBtn}>
             <Save size={14} /> Draft Saved
           </button>
-          {worship.status !== 'COMPLETE' && (
-            <button
-              className={styles.mergeBtn}
-              onClick={handleComplete}
-              disabled={completing}
-            >
-              <CheckCheck size={14} />
-              {completing ? '처리 중...' : 'Merge & Download PPT'}
-            </button>
-          )}
+          <button
+            className={styles.mergeBtn}
+            onClick={handleExport}
+            disabled={exporting}
+          >
+            <Download size={14} />
+            {exporting ? '생성 중...' : 'Merge & Download PPT'}
+          </button>
         </div>
       </div>
 
       <h1 className={styles.pageTitle}>
         {worship.title || formatDate(worship.worshipDate)}
       </h1>
+
+      {exportError && <p className={styles.exportError}>{exportError}</p>}
 
       {/* 2패널 에디터 */}
       <div className={styles.panels}>

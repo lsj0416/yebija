@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.UUID;
 
 @Service
@@ -94,6 +96,16 @@ public class FileService {
         String contentType = file.getContentType();
         if (contentType == null || !contentType.equals("application/vnd.openxmlformats-officedocument.presentationml.presentation")) {
             throw new YebijaException(ErrorCode.FILE_INVALID_TYPE);
+        }
+        // PPTX는 ZIP 기반(OOXML) → 매직 바이트 PK (0x50 0x4B) 로 실제 포맷 검증
+        // .ppt(OLE2) 파일을 .pptx로 이름 변경한 경우 MIME 검사를 통과하지만 여기서 차단
+        try (InputStream is = file.getInputStream()) {
+            byte[] magic = new byte[2];
+            if (is.read(magic) < 2 || magic[0] != 0x50 || magic[1] != 0x4B) {
+                throw new YebijaException(ErrorCode.FILE_INVALID_TYPE);
+            }
+        } catch (IOException e) {
+            throw new YebijaException(ErrorCode.FILE_EMPTY);
         }
     }
 

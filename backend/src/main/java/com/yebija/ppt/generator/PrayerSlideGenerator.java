@@ -22,22 +22,22 @@ public class PrayerSlideGenerator implements SlideGenerator {
     public void addSlides(XMLSlideShow pptx, WorshipItem item) {
         Map<String, Object> content = item.getContent();
 
-        String role = content != null ? (String) content.getOrDefault("role", "기도") : "기도";
-        String leader = content != null ? (String) content.getOrDefault("leader", "") : "";
+        String role   = content != null ? (String) content.getOrDefault("role",   "기도") : "기도";
+        String leader = content != null ? (String) content.getOrDefault("person", "") : "";  // 프론트: "person"
 
         XSLFSlide slide = pptx.createSlide();
         SlideUtils.setBackground(slide);
 
         // 기도 구분 (대표기도 / 헌금기도 등)
         SlideUtils.addTextBox(slide, role,
-                80, 200, SlideUtils.W - 160, 100,
-                36.0, false, TextParagraph.TextAlign.CENTER, SlideUtils.TEXT_SECONDARY);
+                60, 155, SlideUtils.W - 120, 75,
+                28.0, false, TextParagraph.TextAlign.CENTER, SlideUtils.TEXT_SECONDARY);
 
         // 담당자 이름
         if (!leader.isBlank()) {
             SlideUtils.addTextBox(slide, leader,
-                    80, 320, SlideUtils.W - 160, 120,
-                    52.0, true, TextParagraph.TextAlign.CENTER, SlideUtils.TEXT_PRIMARY);
+                    60, 248, SlideUtils.W - 120, 95,
+                    40.0, true, TextParagraph.TextAlign.CENTER, SlideUtils.TEXT_PRIMARY);
         }
     }
 }

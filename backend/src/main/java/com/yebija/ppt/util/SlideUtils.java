@@ -3,6 +3,7 @@ package com.yebija.ppt.util;
 import org.apache.poi.sl.usermodel.ShapeType;
 import org.apache.poi.sl.usermodel.TextParagraph;
 import org.apache.poi.sl.usermodel.VerticalAlignment;
+import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xslf.usermodel.XSLFAutoShape;
 import org.apache.poi.xslf.usermodel.XSLFSlide;
 import org.apache.poi.xslf.usermodel.XSLFTextBox;
@@ -10,12 +11,13 @@ import org.apache.poi.xslf.usermodel.XSLFTextParagraph;
 import org.apache.poi.xslf.usermodel.XSLFTextRun;
 
 import java.awt.*;
+import java.awt.geom.Dimension2D;
 import java.awt.geom.Rectangle2D;
 
 public class SlideUtils {
 
-    public static final int W = 1280;
-    public static final int H = 720;
+    public static final int W = 960;
+    public static final int H = 540;
 
     public static final Color BG_COLOR = new Color(18, 18, 28);
     public static final Color TEXT_PRIMARY = Color.WHITE;
@@ -54,5 +56,21 @@ public class SlideUtils {
         run.setBold(bold);
         run.setFontColor(color);
         run.setFontFamily(FONT_FAMILY);
+    }
+
+    public static boolean normalizePageSize(XMLSlideShow pptx, int targetWidth, int targetHeight) {
+        Dimension2D pageSize = pptx.getPageSize();
+        if (pageSize.getWidth() == targetWidth && pageSize.getHeight() == targetHeight) {
+            return false;
+        }
+
+        throw new IllegalArgumentException(
+                "PPT page size mismatch: expected %dx%d but was %dx%d".formatted(
+                        targetWidth,
+                        targetHeight,
+                        Math.round(pageSize.getWidth()),
+                        Math.round(pageSize.getHeight())
+                )
+        );
     }
 }

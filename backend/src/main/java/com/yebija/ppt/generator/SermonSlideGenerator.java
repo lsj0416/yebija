@@ -22,9 +22,9 @@ public class SermonSlideGenerator implements SlideGenerator {
     public void addSlides(XMLSlideShow pptx, WorshipItem item) {
         Map<String, Object> content = item.getContent();
 
-        String title = content != null ? (String) content.getOrDefault("title", "") : "";
-        String bibleRef = content != null ? (String) content.getOrDefault("bibleRef", "") : "";
-        String preacher = content != null ? (String) content.getOrDefault("preacher", "") : "";
+        String title     = content != null ? (String) content.getOrDefault("title",     "") : "";
+        String bibleRef  = content != null ? (String) content.getOrDefault("scripture", "") : "";  // 프론트: "scripture"
+        String preacher  = content != null ? (String) content.getOrDefault("preacher",  "") : "";
 
         XSLFSlide slide = pptx.createSlide();
         SlideUtils.setBackground(slide);
@@ -32,22 +32,22 @@ public class SermonSlideGenerator implements SlideGenerator {
         // 성경 본문
         if (!bibleRef.isBlank()) {
             SlideUtils.addTextBox(slide, bibleRef,
-                    80, 160, SlideUtils.W - 160, 70,
-                    26.0, false, TextParagraph.TextAlign.CENTER, SlideUtils.TEXT_SECONDARY);
+                    60, 120, SlideUtils.W - 120, 52,
+                    20.0, false, TextParagraph.TextAlign.CENTER, SlideUtils.TEXT_SECONDARY);
         }
 
         // 설교 제목
         if (!title.isBlank()) {
             SlideUtils.addTextBox(slide, title,
-                    80, 250, SlideUtils.W - 160, 140,
-                    52.0, true, TextParagraph.TextAlign.CENTER, SlideUtils.TEXT_PRIMARY);
+                    60, 188, SlideUtils.W - 120, 110,
+                    40.0, true, TextParagraph.TextAlign.CENTER, SlideUtils.TEXT_PRIMARY);
         }
 
         // 설교자
         if (!preacher.isBlank()) {
             SlideUtils.addTextBox(slide, preacher,
-                    80, 430, SlideUtils.W - 160, 70,
-                    26.0, false, TextParagraph.TextAlign.CENTER, SlideUtils.TEXT_SECONDARY);
+                    60, 322, SlideUtils.W - 120, 52,
+                    20.0, false, TextParagraph.TextAlign.CENTER, SlideUtils.TEXT_SECONDARY);
         }
     }
 }

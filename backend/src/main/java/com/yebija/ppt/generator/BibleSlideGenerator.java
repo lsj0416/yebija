@@ -31,9 +31,15 @@ public class BibleSlideGenerator implements SlideGenerator {
         if (content == null) return;
 
         String book = (String) content.get("book");
-        int chapter = ((Number) content.get("chapter")).intValue();
-        int verseStart = ((Number) content.get("verseStart")).intValue();
-        int verseEnd = ((Number) content.get("verseEnd")).intValue();
+        Number chapterNum    = (Number) content.get("chapter");
+        Number verseStartNum = getNumber(content, "startVerse", "verseStart");
+        Number verseEndNum   = getNumber(content, "endVerse", "verseEnd");
+
+        if (book == null || chapterNum == null || verseStartNum == null || verseEndNum == null) return;
+
+        int chapter    = chapterNum.intValue();
+        int verseStart = verseStartNum.intValue();
+        int verseEnd   = verseEndNum.intValue();
 
         BibleResponse response = bibleService.getVerses(book, chapter, verseStart, verseEnd);
         String baseRef = book + " " + chapter + ":" + verseStart
@@ -45,14 +51,24 @@ public class BibleSlideGenerator implements SlideGenerator {
 
             // 상단 성경 참조
             SlideUtils.addTextBox(slide, baseRef,
-                    40, 30, SlideUtils.W - 80, 55,
-                    22.0, false, TextParagraph.TextAlign.RIGHT, SlideUtils.TEXT_SECONDARY);
+                    30, 20, SlideUtils.W - 60, 42,
+                    17.0, false, TextParagraph.TextAlign.RIGHT, SlideUtils.TEXT_SECONDARY);
 
             // 절 번호 + 본문
             String verseText = verse.getVerseNumber() + "  " + verse.getText();
             SlideUtils.addTextBox(slide, verseText,
-                    80, 120, SlideUtils.W - 160, 500,
-                    34.0, false, TextParagraph.TextAlign.CENTER, SlideUtils.TEXT_PRIMARY);
+                    60, 90, SlideUtils.W - 120, 390,
+                    26.0, false, TextParagraph.TextAlign.CENTER, SlideUtils.TEXT_PRIMARY);
         }
+    }
+
+    private Number getNumber(Map<String, Object> content, String preferredKey, String legacyKey) {
+        Object value = content.get(preferredKey);
+        if (value instanceof Number number) {
+            return number;
+        }
+
+        Object legacyValue = content.get(legacyKey);
+        return legacyValue instanceof Number number ? number : null;
     }
 }

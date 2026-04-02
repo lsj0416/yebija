@@ -20,7 +20,9 @@
 ### 1. 환경변수 설정
 
 ```bash
+cd ..
 cp .env.example .env
+cd backend
 ```
 
 ```

@@ -90,7 +90,13 @@
   font-weight: 700;
   color: var(--on-surface);
   letter-spacing: -0.02em;
-  margin-bottom: var(--spacing-6);
+  margin-bottom: var(--spacing-3);
+}
+
+.exportError {
+  font-size: 0.875rem;
+  color: var(--error);
+  margin-bottom: var(--spacing-4);
 }
 
 /* 2패널 */

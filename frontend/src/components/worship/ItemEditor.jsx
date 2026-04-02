@@ -8,6 +8,7 @@ import PrayerInput from './PrayerInput';
 import HymnInput from './HymnInput';
 import ResponsiveInput from './ResponsiveInput';
 import CustomInput from './CustomInput';
+import FileAttachment from './FileAttachment';
 import styles from './ItemEditor.module.css';
 
 const TYPE_ICONS = {
@@ -19,12 +20,18 @@ const TYPE_ICONS = {
   CUSTOM: '✦',
 };
 
+// FILE 모드에서 파일 첨부가 필요한 타입
+const FILE_TYPES = ['HYMN', 'RESPONSIVE_READING'];
+
 function ItemEditor({ worshipId, item, onSaved }) {
-  const [mode,    setMode]    = useState(item.mode);
-  const [content, setContent] = useState(item.content || {});
-  const [saving,  setSaving]  = useState(false);
-  const [saved,   setSaved]   = useState(false);
-  const [error,   setError]   = useState('');
+  const [mode,           setMode]           = useState(item.mode);
+  const [content,        setContent]        = useState(item.content || {});
+  const [fileStorageKey, setFileStorageKey] = useState(item.fileStorageKey || null);
+  const [saving,         setSaving]         = useState(false);
+  const [saved,          setSaved]          = useState(false);
+  const [error,          setError]          = useState('');
+
+  const isFileMode = mode === 'FILE' && FILE_TYPES.includes(item.type);
 
   const handleSave = async () => {
     setSaving(true);
@@ -78,6 +85,18 @@ function ItemEditor({ worshipId, item, onSaved }) {
         {item.type === 'HYMN'               && <HymnInput {...inputProps} />}
         {item.type === 'RESPONSIVE_READING' && <ResponsiveInput {...inputProps} />}
         {item.type === 'CUSTOM'             && <CustomInput {...inputProps} />}
+
+        {/* FILE 모드 항목 — 파일 첨부 영역 */}
+        {isFileMode && (
+          <div className={styles.fileSection}>
+            <p className={styles.fileSectionLabel}>PPT 파일 첨부</p>
+            <FileAttachment
+              itemId={item.id}
+              fileStorageKey={fileStorageKey}
+              onAttached={(key) => setFileStorageKey(key)}
+            />
+          </div>
+        )}
       </div>
 
       {error && <p className={styles.error}>{error}</p>}
