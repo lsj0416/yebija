@@ -13,3 +13,7 @@ logging:
   level:
     com.yebija: INFO
     org.springframework.security: WARN
+
+storage:
+  local:
+    path: ${FILE_STORAGE_ROOT:${FILE_UPLOAD_PATH:/tmp/yebija/uploads}}

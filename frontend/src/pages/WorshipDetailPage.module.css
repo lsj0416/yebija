@@ -96,7 +96,14 @@
 .exportError {
   font-size: 0.875rem;
   color: var(--error);
+  margin-bottom: var(--spacing-2);
+}
+
+.exportHint {
+  font-size: 0.875rem;
+  color: var(--on-surface-variant);
   margin-bottom: var(--spacing-4);
+  line-height: 1.6;
 }
 
 /* 2패널 */

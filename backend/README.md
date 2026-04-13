@@ -1,6 +1,6 @@
 # backend
 
-> 예비자 (Yebija) — Spring Boot API 서버
+> 예비자 (Yebija) — PPT export 베타용 Spring Boot API 서버
 
 ---
 
@@ -11,7 +11,7 @@
 - Spring Data JPA + MySQL 8
 - Spring Data Redis
 - Apache POI (PPT 병합)
-- Jsoup (성경·찬송가 스크래핑)
+- Jsoup (성경봉독 스크래핑)
 
 ---
 
@@ -34,6 +34,7 @@ JWT_SECRET=your-secret-key-must-be-at-least-32-characters
 CORS_ORIGINS=http://localhost:5173
 STORAGE_TYPE=local
 FILE_UPLOAD_PATH=/tmp/yebija/uploads
+FILE_STORAGE_ROOT=/tmp/yebija/uploads   # prod에서 권장
 OPENAI_API_KEY=        # Phase 2
 ```
 
@@ -64,10 +65,7 @@ com.yebija
 ├── template/      # 예배 순서 템플릿
 ├── worship/       # 예배 인스턴스·항목
 ├── bible/         # 성경봉독 스크래핑
-├── hymn/          # 찬송가 스크래핑
-├── responsive/    # 교독문 JSON 번들
 ├── ppt/           # PPT 병합 (Apache POI)
-├── ai/            # AI 추천 — Phase 2
 ├── file/          # 파일 업로드·스토리지
 └── common/        # 예외처리·응답포맷·설정
 ```
@@ -90,8 +88,6 @@ PUT  /api/worships/{id}/items/{id} 항목 내용 입력
 POST /api/worships/{id}/export     PPT 병합 다운로드
 
 GET  /api/bible/verses             성경 구절 조회
-GET  /api/hymns/{number}           찬송가 조회
-GET  /api/responsive/{number}      교독문 조회
 ```
 
 > Swagger UI (로컬): http://localhost:8080/swagger-ui/index.html

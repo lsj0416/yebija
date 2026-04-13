@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { GripVertical, Save, Download } from 'lucide-react';
 import { getWorship } from '../api/worshipApi';
-import { exportPpt } from '../api/fileApi';
+import { exportPpt, getDownloadFilename } from '../api/fileApi';
 import { ITEM_TYPE_LABELS } from '../utils/itemMeta';
 import ItemEditor from '../components/worship/ItemEditor';
 import styles from './WorshipDetailPage.module.css';
@@ -35,7 +35,7 @@ function WorshipDetailPage() {
       })
       .catch(() => navigate('/worships'))
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [id, navigate]);
 
   const handleItemSaved = (updatedWorship) => {
     setWorship(updatedWorship);
@@ -48,17 +48,21 @@ function WorshipDetailPage() {
     setExportError('');
     try {
       const res = await exportPpt(id);
-      const url  = URL.createObjectURL(new Blob([res.data], {
+      const url = URL.createObjectURL(new Blob([res.data], {
         type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
       }));
       const title = worship.title || `worship-${id}`;
+      const filename = getDownloadFilename(res.headers, `${title}.pptx`);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `${title}.pptx`;
+      a.download = filename;
       a.click();
       URL.revokeObjectURL(url);
-    } catch {
-      setExportError('PPT 생성에 실패했습니다. 모든 항목의 내용을 확인해주세요.');
+    } catch (error) {
+      setExportError(
+        error?.yebijaMessage
+          || 'PPT 생성 중 오류가 발생했습니다. 모든 항목의 파일이 올바른 .pptx 형식인지 확인해주세요.'
+      );
     } finally {
       setExporting(false);
     }
@@ -93,7 +97,7 @@ function WorshipDetailPage() {
             disabled={exporting}
           >
             <Download size={14} />
-            {exporting ? '생성 중...' : 'Merge & Download PPT'}
+            {exporting ? '내보내는 중...' : 'PPT 내보내기'}
           </button>
         </div>
       </div>
@@ -103,6 +107,10 @@ function WorshipDetailPage() {
       </h1>
 
       {exportError && <p className={styles.exportError}>{exportError}</p>}
+      <p className={styles.exportHint}>
+        기존 PPT 파일을 순서대로 합쳐 `.pptx`로 다운로드합니다. 일부 파일은 병합 후 폰트나 색상이
+        원본과 다르게 보일 수 있습니다.
+      </p>
 
       {/* 2패널 에디터 */}
       <div className={styles.panels}>

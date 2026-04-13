@@ -1,7 +1,7 @@
 # 예비자 (Yebija) — API 명세
 
 > Base URL: `http://localhost:8080` (로컬) / `https://xxx.railway.app` (운영)
-> 모든 응답은 `ApiResponse<T>` 래퍼로 감싸짐
+> JSON 응답은 `ApiResponse<T>` 래퍼로 감싸짐
 > 인증이 필요한 API는 `Authorization: Bearer {accessToken}` 헤더 필요
 
 ---
@@ -20,16 +20,25 @@
 
 | 코드 | 상황 |
 |---|---|
+| `UNAUTHORIZED` | 인증 필요 |
+| `FORBIDDEN` | 접근 권한 없음 |
+| `INVALID_INPUT` | 요청 본문 또는 파라미터 오류 |
 | `CHURCH_NOT_FOUND` | 교회 계정 없음 |
-| `INVALID_CREDENTIALS` | 이메일/비밀번호 불일치 |
-| `TOKEN_EXPIRED` | JWT 만료 |
-| `BIBLE_FETCH_FAILED` | 성경 스크래핑 실패 |
-| `HYMN_FETCH_FAILED` | 찬송가 스크래핑 실패 |
+| `INVALID_PASSWORD` | 이메일/비밀번호 불일치 |
+| `INVALID_TOKEN` | 유효하지 않은 JWT |
+| `EXPIRED_TOKEN` | 만료된 JWT |
+| `BIBLE_SCRAPING_FAILED` | 성경 스크래핑 실패 |
+| `BIBLE_NOT_FOUND` | 성경 구절 없음 |
 | `TEMPLATE_NOT_FOUND` | 템플릿 없음 |
 | `WORSHIP_NOT_FOUND` | 예배 없음 |
+| `WORSHIP_ITEM_NOT_FOUND` | 예배 항목 없음 |
+| `ITEM_MODE_NOT_ALLOWED` | 해당 항목 유형에서 지원하지 않는 모드 |
 | `PPT_MERGE_FAILED` | PPT 병합 실패 |
-| `INSUFFICIENT_CREDIT` | 크레딧 부족 (Phase 2) |
-| `FILE_TOO_LARGE` | 파일 크기 초과 (50MB) |
+| `FILE_EMPTY` | 업로드 파일 없음 |
+| `FILE_INVALID_TYPE` | pptx가 아닌 파일 업로드 |
+| `FILE_UPLOAD_FAILED` | 파일 업로드 실패 |
+| `FILE_NOT_FOUND` | 저장된 파일 없음 |
+| `FILE_DELETE_FAILED` | 파일 삭제 실패 |
 
 ---
 
@@ -105,7 +114,7 @@ Response: 200
     "isDefault": true,
     "items": [
       { "id": 1, "type": "HYMN", "seq": 1, "label": "찬양1", "defaultMode": "FILE" },
-      { "id": 2, "type": "RESPONSIVE_READING", "seq": 2, "label": "교독문", "defaultMode": "AUTO" },
+      { "id": 2, "type": "RESPONSIVE_READING", "seq": 2, "label": "교독문", "defaultMode": "FILE" },
       { "id": 3, "type": "PRAYER", "seq": 3, "label": "대표기도", "defaultMode": "AUTO" },
       { "id": 4, "type": "BIBLE", "seq": 4, "label": "성경봉독", "defaultMode": "AUTO" },
       { "id": 5, "type": "SERMON", "seq": 5, "label": "설교", "defaultMode": "AUTO" }
@@ -211,16 +220,22 @@ Request:
   }
 }
 
-// FILE 모드
+// FILE 모드 전환
 Request:
 {
-  "mode": "FILE",
-  "fileStorageKey": "uploads/church-1/worship-1/hymn.pptx"
+  "mode": "FILE"
 }
 
 Response: 200
-{ "id": 2, "mode": "AUTO", "content": { ... } }
+{ "id": 2, "mode": "FILE", "content": null }
 ```
+
+#### FILE 항목의 실제 업로드 흐름
+
+1. `PUT /api/worships/{worshipId}/items/{itemId}` 로 `mode=FILE` 전환
+2. `POST /api/files/worship-items/{itemId}` 로 `.pptx` 첨부
+
+`fileStorageKey`는 클라이언트가 직접 쓰지 않는다.
 
 ### PPT 생성 & 다운로드
 ```
@@ -228,9 +243,42 @@ POST /api/worships/{worshipId}/export
 
 Response: 200
 Content-Type: application/vnd.openxmlformats-officedocument.presentationml.presentation
-Content-Disposition: attachment; filename="예비자_2025-03-30.pptx"
+Content-Disposition: attachment; filename*=UTF-8''%EC%98%88%EB%B9%84%EC%9E%90_%EC%A3%BC%EC%9D%BC%EC%98%88%EB%B0%B0.pptx
 (바이너리 스트림)
 ```
+
+#### 동작 규약
+
+- JSON 래퍼를 사용하지 않는 **예외 엔드포인트**다.
+- 성공 시 `.pptx` 바이너리를 그대로 내려준다.
+- 파일명은 `Content-Disposition` 헤더를 기준으로 클라이언트가 사용한다.
+- 파일이 하나도 없어도 요청은 실패하지 않으며, 기본 디자인의 빈 PPT 한 장을 반환할 수 있다.
+
+#### 실패 응답
+
+`export` 요청이 실패하면 일반 JSON 에러 응답을 반환한다.
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "PPT_MERGE_FAILED",
+    "message": "PPT 생성에 실패했습니다."
+  }
+}
+```
+
+주요 실패 케이스:
+
+- `404 WORSHIP_NOT_FOUND` — 다른 교회의 예배이거나 존재하지 않는 예배
+- `404 FILE_NOT_FOUND` — FILE 모드 항목에 연결된 저장 파일이 없음
+- `500 PPT_MERGE_FAILED` — 병합 중 예외 발생
+
+#### 프론트엔드 표시 문구
+
+- 기본 실패 문구: `PPT 생성 중 오류가 발생했습니다. 모든 항목의 파일이 올바른 .pptx 형식인지 확인해주세요.`
+- 테마/마스터 충돌은 실패가 아니라 품질 저하 가능성으로 취급한다.
+
 
 ---
 
@@ -254,68 +302,46 @@ Response: 200
 
 ---
 
-## 5. 찬송가 `/api/hymns`
-
-### 찬송가 조회
-```
-GET /api/hymns/{hymnNumber}
-
-Response: 200
-{
-  "hymnNumber": 304,
-  "title": "그 크신 하나님의 사랑",
-  "verses": [
-    { "verseNum": 1, "lines": ["그 크신 하나님의 사랑", "말로 다 형용 못 하네", ...] },
-    { "verseNum": 2, "lines": [...] }
-  ]
-}
-```
-
----
-
-## 6. 교독문 `/api/responsive`
-
-### 교독문 조회
-```
-GET /api/responsive/{number}
-
-Response: 200
-{
-  "number": 14,
-  "title": "감사",
-  "verses": [
-    { "speaker": "LEADER", "text": "여호와께 감사하라 그는 선하시며..." },
-    { "speaker": "CONGREGATION", "text": "그 인자하심이 영원함이로다" },
-    ...
-  ]
-}
-```
-
----
-
-## 7. 파일 업로드 `/api/files` 🔒
+## 5. 파일 업로드 `/api/files` 🔒
 
 ### 파일 업로드
 ```
-POST /api/files/upload
+POST /api/files
 Content-Type: multipart/form-data
 
 Form:
   file: (binary)
-  worshipItemId: 1   (선택 — 나중에 연결할 항목 ID)
 
 Response: 201
 {
-  "fileId": 1,
+  "id": 1,
   "originalName": "찬양_주일.pptx",
   "storageKey": "uploads/church-1/worship-1/hymn.pptx",
-  "fileSize": 2048000
+  "fileSize": 2048000,
+  "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
 }
 ```
 
+### 예배 항목에 파일 첨부
+```
+POST /api/files/worship-items/{itemId}
+Content-Type: multipart/form-data
+
+Form:
+  file: (binary)
+```
+
+### 파일 삭제
+```
+DELETE /api/files/{fileId}
+Response: 204
+```
+
+> 찬송가와 교독문은 현재 MVP에서 별도 조회 API 없이 FILE 첨부 전용으로 운영합니다.
+
 ---
 
-## 8. AI 추천 `/api/ai` 🔒 Phase 2
+## 6. AI 추천 `/api/ai` 🔒 Phase 2
 
 ### 설교 추천 요청
 ```

@@ -1,14 +1,14 @@
 # frontend
 
-> 예비자 (Yebija) — React 클라이언트
+> 예비자 (Yebija) — PPT export 베타용 React 클라이언트
 
 ---
 
 ## 기술 스택
 
 - React 19 + Vite
-- PptxGenJS (자동 생성 슬라이드)
 - Axios (API 호출)
+- Backend-driven PPT export 다운로드
 
 ---
 
@@ -50,14 +50,14 @@ src/
 
 ---
 
-## 슬라이드 생성 방식
+## 현재 베타 UX
 
-| mode | 처리 방식 |
-|---|---|
-| `AUTO` | PptxGenJS로 브라우저에서 직접 생성 |
-| `FILE` | 업로드 파일을 백엔드로 전송 → Apache POI 병합 |
+- 예배 순서 템플릿을 기반으로 항목을 편집합니다.
+- 찬양·교독문은 주로 기존 `.pptx` 파일을 첨부합니다.
+- 성경봉독은 AUTO 슬라이드 생성으로 채웁니다.
+- 최종 PPT 출력은 항상 `POST /api/worships/{id}/export` 를 통해 백엔드에서 병합 후 다운로드합니다.
 
-최종 PPT 출력은 항상 `POST /api/worships/{id}/export` 를 통해 백엔드에서 병합 후 다운로드.
+다운로드 실패 시 백엔드의 JSON 에러 응답을 읽어 사용자 메시지로 표시합니다.
 
 ---
 

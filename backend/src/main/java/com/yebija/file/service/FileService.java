@@ -56,8 +56,10 @@ public class FileService {
         Church church = churchRepository.findById(churchId)
                 .orElseThrow(() -> new YebijaException(ErrorCode.CHURCH_NOT_FOUND));
 
-        WorshipItem worshipItem = worshipItemRepository.findById(worshipItemId)
+        WorshipItem worshipItem = worshipItemRepository.findByIdAndWorshipChurchId(worshipItemId, churchId)
                 .orElseThrow(() -> new YebijaException(ErrorCode.WORSHIP_ITEM_NOT_FOUND));
+
+        deleteExistingAttachments(churchId, worshipItem);
 
         String storageKey = buildStorageKey(churchId, file.getOriginalFilename());
         fileStorage.store(file, storageKey);
@@ -85,8 +87,14 @@ public class FileService {
     public void delete(Long churchId, Long fileId) {
         UploadedFile uploadedFile = uploadedFileRepository.findByIdAndChurchId(fileId, churchId)
                 .orElseThrow(() -> new YebijaException(ErrorCode.FILE_NOT_FOUND));
-        fileStorage.delete(uploadedFile.getStorageKey());
+        deleteStoredFile(uploadedFile);
+        clearWorshipItemReference(churchId, uploadedFile);
         uploadedFileRepository.delete(uploadedFile);
+    }
+
+    @Transactional
+    public void deleteAttachmentsForWorshipItem(Long churchId, WorshipItem worshipItem) {
+        deleteExistingAttachments(churchId, worshipItem);
     }
 
     private void validateFile(MultipartFile file) {
@@ -115,5 +123,29 @@ public class FileService {
             ext = originalFilename.substring(originalFilename.lastIndexOf("."));
         }
         return "churches/" + churchId + "/" + UUID.randomUUID() + ext;
+    }
+
+    private void deleteExistingAttachments(Long churchId, WorshipItem worshipItem) {
+        uploadedFileRepository.findAllByChurchIdAndWorshipItemId(churchId, worshipItem.getId())
+                .forEach(existing -> {
+                    deleteStoredFile(existing);
+                    uploadedFileRepository.delete(existing);
+                });
+        worshipItem.clearFileKey();
+    }
+
+    private void deleteStoredFile(UploadedFile uploadedFile) {
+        fileStorage.delete(uploadedFile.getStorageKey());
+    }
+
+    private void clearWorshipItemReference(Long churchId, UploadedFile uploadedFile) {
+        Long worshipItemId = uploadedFile.getWorshipItemId();
+        if (worshipItemId == null) {
+            return;
+        }
+
+        worshipItemRepository.findByIdAndWorshipChurchId(worshipItemId, churchId)
+                .filter(item -> uploadedFile.getStorageKey().equals(item.getFileStorageKey()))
+                .ifPresent(WorshipItem::clearFileKey);
     }
 }

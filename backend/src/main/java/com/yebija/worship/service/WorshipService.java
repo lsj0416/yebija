@@ -4,6 +4,7 @@ import com.yebija.church.domain.Church;
 import com.yebija.church.repository.ChurchRepository;
 import com.yebija.common.exception.ErrorCode;
 import com.yebija.common.exception.YebijaException;
+import com.yebija.file.service.FileService;
 import com.yebija.template.domain.TemplateItem;
 import com.yebija.template.domain.WorshipTemplate;
 import com.yebija.template.repository.WorshipTemplateRepository;
@@ -29,6 +30,7 @@ public class WorshipService {
     private final WorshipItemRepository worshipItemRepository;
     private final ChurchRepository churchRepository;
     private final WorshipTemplateRepository templateRepository;
+    private final FileService fileService;
 
     @Transactional
     public WorshipResponse create(Long churchId, WorshipCreateRequest request) {
@@ -88,6 +90,9 @@ public class WorshipService {
     @Transactional
     public void delete(Long churchId, Long worshipId) {
         Worship worship = getWorship(churchId, worshipId);
+        for (WorshipItem item : worship.getItems()) {
+            fileService.deleteAttachmentsForWorshipItem(churchId, item);
+        }
         worshipRepository.delete(worship);
     }
 
@@ -98,6 +103,10 @@ public class WorshipService {
         WorshipItem item = worshipItemRepository.findByIdAndWorshipId(itemId, worshipId)
                 .orElseThrow(() -> new YebijaException(ErrorCode.WORSHIP_ITEM_NOT_FOUND));
 
+        validateMode(item.getType(), request.getMode());
+        if (request.getMode() == com.yebija.template.domain.enums.ItemMode.AUTO) {
+            fileService.deleteAttachmentsForWorshipItem(churchId, item);
+        }
         item.updateContent(request.getLabel(), request.getMode(), request.getContent());
         return WorshipResponse.from(worship);
     }
@@ -105,5 +114,12 @@ public class WorshipService {
     private Worship getWorship(Long churchId, Long worshipId) {
         return worshipRepository.findByIdAndChurchId(worshipId, churchId)
                 .orElseThrow(() -> new YebijaException(ErrorCode.WORSHIP_NOT_FOUND));
+    }
+
+    private void validateMode(com.yebija.template.domain.enums.ItemType type,
+                              com.yebija.template.domain.enums.ItemMode mode) {
+        if (!type.supportsMode(mode)) {
+            throw new YebijaException(ErrorCode.ITEM_MODE_NOT_ALLOWED);
+        }
     }
 }

@@ -41,7 +41,7 @@ public class TemplateItem {
         item.type = type;
         item.seq = seq;
         item.label = label;
-        item.defaultMode = defaultMode != null ? defaultMode : ItemMode.AUTO;
+        item.defaultMode = defaultMode != null ? defaultMode : type.getRecommendedMode();
         return item;
     }
 }

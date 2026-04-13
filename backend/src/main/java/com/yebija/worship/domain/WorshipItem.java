@@ -60,10 +60,19 @@ public class WorshipItem {
     public void updateContent(String label, ItemMode mode, Map<String, Object> content) {
         this.label = label;
         this.mode = mode;
-        this.content = content;
+        this.content = mode == ItemMode.FILE ? null : content;
+        if (mode == ItemMode.AUTO) {
+            this.fileStorageKey = null;
+        }
     }
 
     public void updateFileKey(String fileStorageKey) {
+        this.mode = ItemMode.FILE;
+        this.content = null;
         this.fileStorageKey = fileStorageKey;
+    }
+
+    public void clearFileKey() {
+        this.fileStorageKey = null;
     }
 }

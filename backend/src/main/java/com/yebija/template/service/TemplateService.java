@@ -6,6 +6,8 @@ import com.yebija.common.exception.ErrorCode;
 import com.yebija.common.exception.YebijaException;
 import com.yebija.template.domain.TemplateItem;
 import com.yebija.template.domain.WorshipTemplate;
+import com.yebija.template.domain.enums.ItemMode;
+import com.yebija.template.domain.enums.ItemType;
 import com.yebija.template.dto.TemplateCreateRequest;
 import com.yebija.template.dto.TemplateItemRequest;
 import com.yebija.template.dto.TemplateResponse;
@@ -88,10 +90,22 @@ public class TemplateService {
 
     private void addItems(WorshipTemplate template, List<TemplateItemRequest> itemRequests) {
         for (TemplateItemRequest req : itemRequests) {
+            ItemMode defaultMode = req.getDefaultMode() != null
+                    ? req.getDefaultMode()
+                    : req.getType().getRecommendedMode();
+
+            validateMode(req.getType(), defaultMode);
+
             TemplateItem item = TemplateItem.create(
-                    template, req.getType(), req.getSeq(), req.getLabel(), req.getDefaultMode()
+                    template, req.getType(), req.getSeq(), req.getLabel(), defaultMode
             );
             template.getItems().add(item);
+        }
+    }
+
+    private void validateMode(ItemType type, ItemMode mode) {
+        if (!type.supportsMode(mode)) {
+            throw new YebijaException(ErrorCode.ITEM_MODE_NOT_ALLOWED);
         }
     }
 }

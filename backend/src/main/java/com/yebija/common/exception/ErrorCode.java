@@ -32,6 +32,7 @@ public enum ErrorCode {
     // 예배
     WORSHIP_NOT_FOUND(404, "WORSHIP_NOT_FOUND", "존재하지 않는 예배입니다."),
     WORSHIP_ITEM_NOT_FOUND(404, "WORSHIP_ITEM_NOT_FOUND", "존재하지 않는 예배 항목입니다."),
+    ITEM_MODE_NOT_ALLOWED(400, "ITEM_MODE_NOT_ALLOWED", "해당 항목 유형에서는 지원하지 않는 모드입니다."),
 
     // 파일
     FILE_EMPTY(400, "FILE_EMPTY", "업로드할 파일이 없습니다."),
