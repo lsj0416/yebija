@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface WorshipItemRepository extends JpaRepository<WorshipItem, Long> {
 
     Optional<WorshipItem> findByIdAndWorshipId(Long id, Long worshipId);
+
+    Optional<WorshipItem> findByIdAndWorshipChurchId(Long id, Long churchId);
 }

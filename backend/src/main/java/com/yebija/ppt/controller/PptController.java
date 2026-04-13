@@ -1,6 +1,7 @@
 package com.yebija.ppt.controller;
 
 import com.yebija.common.util.SecurityUtil;
+import com.yebija.ppt.service.PptExportResult;
 import com.yebija.ppt.service.PptMergeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ContentDisposition;
@@ -24,17 +25,17 @@ public class PptController {
     @PostMapping("/{worshipId}/export")
     public ResponseEntity<byte[]> export(@PathVariable Long worshipId) {
         Long churchId = SecurityUtil.getCurrentChurchId();
-        byte[] pptBytes = pptMergeService.export(churchId, worshipId);
+        PptExportResult result = pptMergeService.export(churchId, worshipId);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(
                 "application/vnd.openxmlformats-officedocument.presentationml.presentation"));
         headers.setContentDisposition(
                 ContentDisposition.attachment()
-                        .filename("worship-" + worshipId + ".pptx", StandardCharsets.UTF_8)
+                        .filename(result.filename(), StandardCharsets.UTF_8)
                         .build());
-        headers.setContentLength(pptBytes.length);
+        headers.setContentLength(result.content().length);
 
-        return ResponseEntity.ok().headers(headers).body(pptBytes);
+        return ResponseEntity.ok().headers(headers).body(result.content());
     }
 }

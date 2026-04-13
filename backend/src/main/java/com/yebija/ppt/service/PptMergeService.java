@@ -23,6 +23,7 @@ import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,13 +35,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PptMergeService {
 
+    private static final DateTimeFormatter FILE_DATE_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE;
+
     private final WorshipRepository worshipRepository;
     private final FileStorage fileStorage;
     private final List<SlideGenerator> generators;
     private final AutoSlidePptxSerializer autoSerializer;
 
     @Transactional(readOnly = true)
-    public byte[] export(Long churchId, Long worshipId) {
+    public PptExportResult export(Long churchId, Long worshipId) {
         Worship worship = worshipRepository.findByIdAndChurchId(worshipId, churchId)
                 .orElseThrow(() -> new YebijaException(ErrorCode.WORSHIP_NOT_FOUND));
 
@@ -49,7 +52,7 @@ public class PptMergeService {
 
         List<WorshipItem> items = worship.getItems();
         if (items.isEmpty()) {
-            return generateEmptyPptx();
+            return new PptExportResult(buildFilename(worship), generateEmptyPptx());
         }
 
         List<byte[]> segments;
@@ -64,7 +67,7 @@ public class PptMergeService {
             for (byte[] segment : segments) {
                 merger.appendPptx(segment);
             }
-            return merger.toBytes();
+            return new PptExportResult(buildFilename(worship), merger.toBytes());
         } catch (YebijaException e) {
             throw e;
         } catch (Exception e) {
@@ -134,5 +137,22 @@ public class PptMergeService {
         } catch (IOException e) {
             throw new YebijaException(ErrorCode.PPT_MERGE_FAILED);
         }
+    }
+
+    private String buildFilename(Worship worship) {
+        String base = worship.getTitle();
+        if (base == null || base.isBlank()) {
+            base = "예배_" + FILE_DATE_FORMAT.format(worship.getWorshipDate());
+        }
+
+        String sanitized = base
+                .replaceAll("[\\\\/:*?\"<>|]", "_")
+                .trim();
+
+        if (sanitized.isBlank()) {
+            sanitized = "worship-" + worship.getId();
+        }
+
+        return "예비자_" + sanitized + ".pptx";
     }
 }

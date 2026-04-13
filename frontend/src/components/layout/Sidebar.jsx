@@ -1,3 +1,4 @@
+import { createElement } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   LayoutGrid,
@@ -38,7 +39,7 @@ function Sidebar() {
 
       {/* Main nav */}
       <nav className={styles.nav}>
-        {NAV_ITEMS.map(({ icon: Icon, label, to }) => (
+        {NAV_ITEMS.map(({ icon, label, to }) => (
           <NavLink
             key={to}
             to={to}
@@ -46,7 +47,7 @@ function Sidebar() {
               `${styles.navItem} ${isActive ? styles.active : ''}`
             }
           >
-            <Icon size={16} className={styles.navIcon} />
+            {createElement(icon, { size: 16, className: styles.navIcon })}
             <span>{label}</span>
           </NavLink>
         ))}
@@ -54,7 +55,7 @@ function Sidebar() {
 
       {/* Bottom nav */}
       <div className={styles.bottom}>
-        {BOTTOM_ITEMS.map(({ icon: Icon, label, to }) => (
+        {BOTTOM_ITEMS.map(({ icon, label, to }) => (
           <NavLink
             key={to}
             to={to}
@@ -62,7 +63,7 @@ function Sidebar() {
               `${styles.navItem} ${isActive ? styles.active : ''}`
             }
           >
-            <Icon size={16} className={styles.navIcon} />
+            {createElement(icon, { size: 16, className: styles.navIcon })}
             <span>{label}</span>
           </NavLink>
         ))}
